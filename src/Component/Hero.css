@@ -1,0 +1,176 @@
+
+
+.home {
+    width: 100%;
+    font-family: "DM Sans", sans-serif;
+}
+.hero {
+    min-height: 550px;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(4, 14, 45, 0.96) 0%,
+            rgba(4, 14, 45, 0.82) 35%,
+            rgba(4, 14, 45, 0.25) 75%,
+            rgba(4, 14, 45, 0.05) 100%
+        ),
+        url("/career.jfif");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    padding: 70px 8%;
+}
+
+.hero-content {
+    max-width: 620px;
+    color: white;
+}
+.hero-tagline {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #d4af37;
+    margin-bottom: 20px;
+}
+.hero-content h1 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 22px;
+}
+
+.hero-content h1 span {
+    color: #e2b64b;
+}
+.hero-description {
+    font-size: 15px;
+    line-height: 1.9;
+    color: #e5e7eb;
+    max-width: 500px;
+    margin-bottom: 30px;
+}
+.hero-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.explore-btn {
+    background-color: #d4af37;
+    color: #071c2c;
+
+    border: none;
+    padding: 15px 23px;
+
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+.explore-btn:hover {
+    background-color: #f0ca61;
+}
+
+.profile-btn {
+    background: transparent;
+    color: white;
+
+    border: 1px solid white;
+    padding: 14px 23px;
+
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+.profile-btn:hover {
+    background-color: white;
+    color: #071c2c;
+}
+.feature-section {
+    width: 84%;
+    margin: -45px auto 60px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    background-color: #070748;
+    color: white;
+
+    position: relative;
+    z-index: 2;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+.feature-card {
+    padding: 28px 30px;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.feature-card:last-child {
+    border-right: none;
+}
+
+.feature-icon {
+    font-size: 27px;
+    margin-bottom: 12px;
+}
+
+.feature-card h3 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 19px;
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #d1d5db;
+}
+
+
+
+
+@media (max-width: 768px) {
+
+    .hero {
+        min-height: 520px;
+        padding: 55px 6%;
+    }
+
+    .hero-content h1 {
+        font-size: 36px;
+    }
+
+    .hero-description {
+        font-size: 14px;
+    }
+
+    .feature-section {
+        width: 90%;
+        grid-template-columns: 1fr;
+        margin-top: 20px;
+    }
+
+    .feature-card {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .feature-card:last-child {
+        border-bottom: none;
+    }
+}
