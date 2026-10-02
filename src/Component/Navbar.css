@@ -1,8 +1,21 @@
-.main-box {
-    height: 36px;
-    width: 100%;
-    background-color: #070748;
+* {
     box-sizing: border-box;
+}
+
+.navbar-container {
+    width: 100%;
+    font-family: Arial, sans-serif;
+}
+
+
+/* =========================
+   UTILITY BAR
+========================= */
+
+.main-box {
+    width: 100%;
+    height: 32px;
+    background-color: #070748;
 }
 
 .main-content {
@@ -10,19 +23,113 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 28px;
-    padding: 0 45px;
+    gap: 32px;
+    padding: 0 55px;
 }
 
 .sub-content {
     color: #f5f5f5;
-    font-size: 12px;
-    font-family: DM Sans;
-    letter-spacing: 0.3px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.4px;
     cursor: pointer;
     transition: color 0.3s ease;
 }
 
 .sub-content:hover {
     color: #d4af37;
+}
+
+
+/* =========================
+   MAIN NAVBAR
+========================= */
+
+.navbar {
+    width: 100%;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    padding: 0 55px;
+    background-color: #ffffff;
+}
+
+
+
+
+.logo {
+    color: #070748;
+    font-size: 28px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+
+
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: auto;
+      color:  #070748;
+}
+
+.sub-bar {
+    padding: 8px 15px;
+  
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.sub-bar:hover {
+    color: #b28a2e;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-left: 20px;
+}
+
+.login-btn {
+    border: none;
+    background: transparent;
+    color: #070748;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 8px 2px;
+}
+
+.login-btn:hover {
+    color: #b28a2e;
+}
+
+.join-btn {
+    border: none;
+    background-color: #070748;
+    color: #ffffff;
+    padding: 11px 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 18px;
+}
+
+.join-btn:hover {
+    background-color: #b28a2e;
+}
+.main-btn{
+    gap:10px
 }
