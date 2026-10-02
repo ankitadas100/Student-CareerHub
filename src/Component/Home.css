@@ -1,0 +1,67 @@
+
+
+.looking-section {
+    padding: 60px 8%;
+    text-align: center;
+    background-color: #f7f4ec;
+}
+
+.section-label {
+    color: #d4af37;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.looking-section h2 {
+    color: #070748;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 38px;
+    margin: 10px 0;
+}
+
+.section-text {
+    color: #555;
+    margin-bottom: 40px;
+}
+
+.looking-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.looking-card {
+    background-color: white;
+    padding: 30px;
+    text-align: left;
+    border-top: 4px solid #070748;
+}
+
+.looking-card span {
+    color: #d4af37;
+    font-weight: bold;
+}
+
+.looking-card h3 {
+    color: #070748;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 22px;
+}
+
+.looking-card p {
+    color: #555;
+    line-height: 1.6;
+}
+
+.looking-card button {
+    border: none;
+    background: none;
+    color: #070748;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.looking-card button:hover {
+    color: #d4af37;
+}

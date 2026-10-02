@@ -102,7 +102,7 @@
 }
 .feature-section {
     width: 84%;
-    margin: -45px auto 60px;
+    margin: -45px auto 30px;
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
