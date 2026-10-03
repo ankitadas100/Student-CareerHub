@@ -47,3 +47,14 @@
 .footer-bottom span {
     margin-left: 20px;
 }
+.footer-column p {
+    color: #d9d9e5;
+    font-size: 14px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.footer-column p:hover {
+    color: #d4af37;
+}
