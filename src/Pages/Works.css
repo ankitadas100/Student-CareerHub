@@ -1,0 +1,42 @@
+/* How CareerSpring Works */
+
+.works-section {
+    padding: 70px 8%;
+    text-align: center;
+    background-color: #f7f4ec;
+}
+
+.works-section h2 {
+    color: #070748;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 36px;
+    margin: 10px 0;
+}
+
+.works-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.work-step {
+    text-align: left;
+    padding: 10px 20px;
+    border-left: 2px solid #d4af37;
+}
+
+.work-step span {
+    color: #d4af37;
+    font-weight: bold;
+}
+
+.work-step h3 {
+    color: #070748;
+    font-family: "Playfair Display", Georgia, serif;
+}
+
+.work-step p {
+    color: #555;
+    line-height: 1.6;
+}

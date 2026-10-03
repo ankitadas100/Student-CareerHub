@@ -1,0 +1,55 @@
+.resources-section {
+    padding: 70px 8%;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+.resources-section h2 {
+    max-width: 650px;
+    margin: 10px auto;
+    color: #070748;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 36px;
+}
+
+.resource-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-top: 40px;
+}
+
+.resource-card {
+    padding: 30px;
+    text-align: left;
+    background-color: #f7f4ec;
+    border-top: 3px solid #d4af37;
+}
+
+.resource-card span {
+    color: #d4af37;
+    font-weight: 700;
+}
+
+.resource-card h3 {
+    color: #070748;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 21px;
+}
+
+.resource-card p {
+    color: #555;
+    line-height: 1.6;
+}
+
+.resource-card button {
+    border: none;
+    background: none;
+    color: #070748;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.resource-card button:hover {
+    color: #d4af37;
+}
