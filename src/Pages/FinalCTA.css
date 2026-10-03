@@ -1,0 +1,53 @@
+.final-cta {
+    margin-top: 25px;
+    padding: 80px 8%;
+    text-align: center;
+    background-color: #f7f4ec;
+    color: #070748;
+}
+
+.cta-label {
+    color: #b88a00;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.final-cta h2 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 42px;
+    line-height: 1.2;
+    margin: 15px 0;
+    color: #070748;
+}
+
+.cta-text {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    color: #555;
+    line-height: 1.7;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.cta-primary {
+    padding: 14px 22px;
+    border: none;
+    background-color: #070748;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.cta-secondary {
+    padding: 14px 22px;
+    border: 1px solid #070748;
+    background: transparent;
+    color: #070748;
+    font-weight: 600;
+    cursor: pointer;
+}

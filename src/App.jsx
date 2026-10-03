@@ -5,6 +5,8 @@ import Hero from "./Component/Hero";
 import Home from"./Component/Home";
 import Resources from "./Pages/Resources";
 import Works from "./Pages/Works";
+import FinalCTA from "./Pages/FinalCTA";
+import Footer from "./Pages/Footer";
 function App(){
   return(<>
   <Navbar/>
@@ -12,6 +14,8 @@ function App(){
   <Home/>
   <Resources/>
   <Works/>
+  <FinalCTA />
+  <Footer/>
   <BrowserRouter>
   <Routes>
     <Route>
