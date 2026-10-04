@@ -1,0 +1,103 @@
+
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7f4ec;
+    padding: 40px 20px;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 430px;
+    padding: 40px;
+    background-color: white;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.login-box h1 {
+    color: #070748;
+    font-family: "Playfair Display", serif;
+    font-size: 28px;
+    text-align: center;
+}
+
+.login-box h2 {
+    color: #070748;
+    text-align: center;
+    margin-top: 25px;
+}
+
+.login-text {
+    color: #666;
+    text-align: center;
+    margin: 10px 0 30px;
+}
+
+.login-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.login-box label {
+    color: #070748;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.login-box input {
+    padding: 13px;
+    border: 1px solid #ddd;
+    outline: none;
+    font-size: 14px;
+}
+
+.login-box input:focus {
+    border-color: #d4af37;
+}
+
+.forgot {
+    text-align: right;
+    color: #070748;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.forgot:hover {
+    color: #b28a2e;
+}
+
+.login-box form button {
+    padding: 14px;
+    margin-top: 12px;
+    border: none;
+    background-color: #070748;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-box form button:hover {
+    background-color: #d4af37;
+    color: #070748;
+}
+
+.register-text {
+    margin-top: 25px;
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+}
+
+.register-text span {
+    color: #070748;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.register-text span:hover {
+    color: #b28a2e;
+}
