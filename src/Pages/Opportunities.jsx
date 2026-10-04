@@ -1,5 +1,6 @@
 import React from "react";
 import "./Opportunities.css";
+import { Link } from "react-router-dom";
 
 function Opportunities() {
     return (
@@ -63,9 +64,12 @@ function Opportunities() {
                         INTERNSHIP
                     </p>
 
-                    <h2 className="opportunity-title">
-                        Frontend Developer Intern
-                    </h2>
+                    <Link
+                        to="/opportunity-details/frontend"
+                        className="details-button"
+                    >
+                        VIEW DETAILS →
+                    </Link>
 
                     <p className="opportunity-company">
                         ABC Technologies
@@ -108,9 +112,12 @@ function Opportunities() {
                         FULL TIME
                     </p>
 
-                    <h2 className="opportunity-title">
-                        Software Trainee
-                    </h2>
+                    <Link
+                        to="/opportunity-details/software"
+                        className="details-button"
+                    >
+                        VIEW DETAILS →
+                    </Link>
 
                     <p className="opportunity-company">
                         XYZ Solutions
@@ -149,10 +156,12 @@ function Opportunities() {
                         INTERNSHIP
                     </p>
 
-                    <h2 className="opportunity-title">
-                        UI/UX Design Intern
-                    </h2>
-
+                    <Link
+                        to="/opportunity-details/uiux"
+                        className="details-button"
+                    >
+                        VIEW DETAILS →
+                    </Link>
                     <p className="opportunity-company">
                         Design Studio
                     </p>

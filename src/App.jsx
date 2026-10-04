@@ -11,34 +11,40 @@ import FinalCTA from "./Pages/FinalCTA";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Opportunities from "./Pages/Opportunities";
+import OpportunityDetails from "./Component/OpportunityDetails";
 function App() {
-    return (
-        <BrowserRouter>
+  return (
+    <BrowserRouter>
 
-            <Navbar />
+      <Navbar />
 
-            <Routes>
+      <Routes>
 
-                <Route path="/" element={
-                    <>
-                        <Hero />
-                        <Home />
-                        <Resources />
-                        <Works />
-                        <FinalCTA />
-                    </>
-                } />
+        <Route path="/" element={
+          <>
+            <Hero />
+            <Home />
+            <Resources />
+            <Works />
+            <FinalCTA />
+          </>
+        } />
 
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/opportunities" element={<Opportunities />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/opportunities" element={<Opportunities />} />
+       <Route
+    path="/opportunity-details/:id"
+    element={<OpportunityDetails />}
+/>
+        
 
-            </Routes>
+      </Routes>
 
-            <Footer />
+      <Footer />
 
-        </BrowserRouter>
-    );
+    </BrowserRouter>
+  );
 }
 
 export default App;

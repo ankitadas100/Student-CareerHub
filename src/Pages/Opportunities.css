@@ -173,3 +173,7 @@
     background-color: #070748;
     color: white;
 }
+.details-button {
+    display: inline-block;
+    text-decoration: none;
+}
