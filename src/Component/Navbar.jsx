@@ -23,10 +23,15 @@ function Navbar() {
                     <Link to="/opportunities" className="sub-bar">
                         Opportunities
                     </Link>
-                    <div className="sub-bar">Career Guide</div>
+                    <Link
+                        to="/career-guide"
+                        className="sub-bar"
+                    >
+                        Career Guide
+                    </Link>
                     <Link to="/resources" className="sub-bar">
-    Resources
-</Link>
+                        Resources
+                    </Link>
                     <Link to="/about" className="sub-bar">
                         About
                     </Link>

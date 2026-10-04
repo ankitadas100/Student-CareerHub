@@ -3,7 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./Component/Navbar";
 import Hero from "./Component/Hero";
 import Home from "./Component/Home";
-import Footer from "./Pages/Footer"
+import Footer from "./Pages/Footer";
+import CareerGuide from "./Component/CareerGuide";
 
 import Resources from "./Pages/Resources";
 import Works from "./Pages/Works";
@@ -44,6 +45,10 @@ function App() {
  <Route
     path="/resources"
     element={<Resources />}
+/>
+<Route
+    path="/career-guide"
+    element={<CareerGuide />}
 />
         
 
