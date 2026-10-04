@@ -58,18 +58,18 @@ function Opportunities() {
 
             <section className="opportunities-list">
 
+
+                {/* Frontend Developer */}
+
                 <div className="opportunity-card">
 
                     <p className="opportunity-type">
                         INTERNSHIP
                     </p>
 
-                    <Link
-                        to="/opportunity-details/frontend"
-                        className="details-button"
-                    >
-                        VIEW DETAILS →
-                    </Link>
+                    <h2 className="opportunity-title">
+                        Frontend Developer Intern
+                    </h2>
 
                     <p className="opportunity-company">
                         ABC Technologies
@@ -99,12 +99,17 @@ function Opportunities() {
 
                     </div>
 
-                    <button className="details-button">
+                    <Link
+                        to="/opportunity-details/frontend"
+                        className="details-button"
+                    >
                         VIEW DETAILS →
-                    </button>
+                    </Link>
 
                 </div>
 
+
+                {/* Software Trainee */}
 
                 <div className="opportunity-card">
 
@@ -112,12 +117,9 @@ function Opportunities() {
                         FULL TIME
                     </p>
 
-                    <Link
-                        to="/opportunity-details/software"
-                        className="details-button"
-                    >
-                        VIEW DETAILS →
-                    </Link>
+                    <h2 className="opportunity-title">
+                        Software Trainee
+                    </h2>
 
                     <p className="opportunity-company">
                         XYZ Solutions
@@ -143,12 +145,17 @@ function Opportunities() {
 
                     </div>
 
-                    <button className="details-button">
+                    <Link
+                        to="/opportunity-details/software"
+                        className="details-button"
+                    >
                         VIEW DETAILS →
-                    </button>
+                    </Link>
 
                 </div>
 
+
+                {/* UI/UX Design */}
 
                 <div className="opportunity-card">
 
@@ -156,12 +163,10 @@ function Opportunities() {
                         INTERNSHIP
                     </p>
 
-                    <Link
-                        to="/opportunity-details/uiux"
-                        className="details-button"
-                    >
-                        VIEW DETAILS →
-                    </Link>
+                    <h2 className="opportunity-title">
+                        UI/UX Design Intern
+                    </h2>
+
                     <p className="opportunity-company">
                         Design Studio
                     </p>
@@ -186,11 +191,15 @@ function Opportunities() {
 
                     </div>
 
-                    <button className="details-button">
+                    <Link
+                        to="/opportunity-details/uiux"
+                        className="details-button"
+                    >
                         VIEW DETAILS →
-                    </button>
+                    </Link>
 
                 </div>
+
 
             </section>
 

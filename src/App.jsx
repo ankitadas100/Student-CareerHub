@@ -12,6 +12,7 @@ import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Opportunities from "./Pages/Opportunities";
 import OpportunityDetails from "./Component/OpportunityDetails";
+import About  from "./Component/About";
 function App() {
   return (
     <BrowserRouter>
@@ -23,8 +24,7 @@ function App() {
         <Route path="/" element={
           <>
             <Hero />
-            <Home />
-            <Resources />
+           
             <Works />
             <FinalCTA />
           </>
@@ -36,6 +36,14 @@ function App() {
        <Route
     path="/opportunity-details/:id"
     element={<OpportunityDetails />}
+    />
+    <Route
+    path="/about"
+    element={<About />}
+/>
+ <Route
+    path="/resources"
+    element={<Resources />}
 />
         
 

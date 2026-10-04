@@ -1,0 +1,149 @@
+.about-page {
+    min-height: 100vh;
+    background-color: #f7f4ec;
+    color: #17202a;
+}
+
+
+/* Header */
+
+.about-header {
+    padding: 75px 8% 65px;
+    text-align: center;
+    background-color: #070748;
+    color: white;
+}
+
+.about-label {
+    color: #d4af37;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.about-title {
+    max-width: 800px;
+    margin: auto;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 42px;
+    line-height: 1.2;
+}
+
+.about-description {
+    max-width: 700px;
+    margin: 20px auto 0;
+    color: #d9d9e5;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+
+/* Mission */
+
+.about-mission {
+    padding: 70px 8%;
+    background-color: white;
+}
+
+.mission-content {
+    max-width: 850px;
+    margin: auto;
+}
+
+.section-label {
+    color: #b88a00;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.mission-title {
+    color: #070748;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.mission-description {
+    color: #666;
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+
+/* What We Offer */
+
+.about-offer {
+    padding: 70px 8%;
+    text-align: center;
+    background-color: #f7f4ec;
+}
+
+.offer-title {
+    color: #070748;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 32px;
+    margin-bottom: 40px;
+}
+
+.offer-list {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.offer-card {
+    background-color: white;
+    padding: 30px;
+    text-align: left;
+    border-top: 4px solid #d4af37;
+}
+
+.offer-number {
+    color: #b88a00;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.offer-card-title {
+    color: #070748;
+    font-size: 21px;
+    margin: 15px 0 10px;
+}
+
+.offer-card-text {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* Why CareerSpring */
+
+.about-why {
+    padding: 70px 8%;
+    background-color: white;
+}
+
+.why-content {
+    max-width: 850px;
+    margin: auto;
+}
+
+.why-title {
+    color: #070748;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.why-description {
+    color: #666;
+    font-size: 15px;
+    line-height: 1.8;
+}
