@@ -1,0 +1,93 @@
+.register-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7f4ec;
+    padding: 40px 20px;
+}
+
+.register-box {
+    width: 100%;
+    max-width: 480px;
+    padding: 40px;
+    background-color: white;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.register-box h1 {
+    color: #070748;
+    font-family: "Playfair Display", serif;
+    font-size: 28px;
+    text-align: center;
+}
+
+.register-box h2 {
+    color: #070748;
+    text-align: center;
+    margin-top: 25px;
+}
+
+.register-text {
+    color: #666;
+    text-align: center;
+    margin: 10px 0 30px;
+}
+
+.register-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.register-box label {
+    color: #070748;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.register-box input,
+.register-box select {
+    padding: 13px;
+    border: 1px solid #ddd;
+    outline: none;
+    font-size: 14px;
+}
+
+.register-box input:focus,
+.register-box select:focus {
+    border-color: #d4af37;
+}
+
+.register-box button {
+    padding: 14px;
+    margin-top: 12px;
+    border: none;
+    background-color: #070748;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.register-box button:hover {
+    background-color: #d4af37;
+    color: #070748;
+}
+
+.already-text {
+    margin-top: 25px;
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+}
+
+.already-text span {
+    color: #070748;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.already-text span:hover {
+    color: #b28a2e;
+}

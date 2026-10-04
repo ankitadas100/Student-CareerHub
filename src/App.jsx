@@ -9,6 +9,7 @@ import Resources from "./Pages/Resources";
 import Works from "./Pages/Works";
 import FinalCTA from "./Pages/FinalCTA";
 import Login from "./Pages/Login";
+import Register from "./Pages/Register";
 
 function App() {
     return (
@@ -29,6 +30,7 @@ function App() {
                 } />
 
                 <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
 
             </Routes>
 
