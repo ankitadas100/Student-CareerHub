@@ -101,3 +101,12 @@
 .register-text span:hover {
     color: #b28a2e;
 }
+.register-text a {
+    color: #070748;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.register-text a:hover {
+    color: #b28a2e;
+}

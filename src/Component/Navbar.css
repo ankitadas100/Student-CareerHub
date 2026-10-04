@@ -8,9 +8,6 @@
 }
 
 
-/* =========================
-   UTILITY BAR
-========================= */
 
 .main-box {
     width: 100%;
@@ -77,11 +74,12 @@
 
 .sub-bar {
     padding: 8px 15px;
-  
+  color:  #070748;
     font-size: 13px;
     font-weight: 700;
     cursor: pointer;
     transition: color 0.3s ease;
+    text-decoration: none;
 }
 
 .sub-bar:hover {

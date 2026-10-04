@@ -91,3 +91,12 @@
 .already-text span:hover {
     color: #b28a2e;
 }
+.already-text a {
+    color: #070748;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.already-text a:hover {
+    color: #b28a2e;
+}

@@ -10,7 +10,7 @@ import Works from "./Pages/Works";
 import FinalCTA from "./Pages/FinalCTA";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
-
+import Opportunities from "./Pages/Opportunities";
 function App() {
     return (
         <BrowserRouter>
@@ -31,6 +31,7 @@ function App() {
 
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/opportunities" element={<Opportunities />} />
 
             </Routes>
 

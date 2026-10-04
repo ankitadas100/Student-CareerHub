@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import "./Register.css";
 
 function Register() {
@@ -61,7 +61,7 @@ function Register() {
 
                 <p className="already-text">
                     Already have an account?
-                    <span> LOGIN</span>
+                    <Link to="/login"> LOGIN</Link>
                 </p>
 
             </div>
