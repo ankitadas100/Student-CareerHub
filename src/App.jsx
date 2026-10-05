@@ -14,6 +14,9 @@ import Register from "./Pages/Register";
 import Opportunities from "./Pages/Opportunities";
 import OpportunityDetails from "./Component/OpportunityDetails";
 import About  from "./Component/About";
+import StudentProfile from "./Pages/StudentProfile";
+import StudentDashboard from "./Pages/StudentDashboard";
+import MyApplications from "./Pages/MyApplications";
 function App() {
   return (
     <BrowserRouter>
@@ -49,6 +52,18 @@ function App() {
 <Route
     path="/career-guide"
     element={<CareerGuide />}
+/>
+<Route
+    path="/profile"
+    element={<StudentProfile />}
+/>
+<Route
+    path="/student-dashboard"
+    element={<StudentDashboard />}
+/>
+<Route
+    path="/my-applications"
+    element={<MyApplications />}
 />
         
 

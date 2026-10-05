@@ -1,0 +1,118 @@
+.applications-page {
+    min-height: 100vh;
+    background: #f7f4ec;
+    padding-bottom: 60px;
+}
+
+.applications-header {
+    background: #070748;
+    color: white;
+    text-align: center;
+    padding: 70px 20px;
+}
+
+.applications-label {
+    color: #d4af37;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.applications-title {
+    margin: 15px 0;
+    font-family: Georgia, serif;
+    font-size: 42px;
+}
+
+.applications-description {
+    max-width: 650px;
+    margin: auto;
+    line-height: 1.7;
+    color: #eeeeee;
+}
+
+.applications-content {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.application-card {
+    background: white;
+    border: 1px solid #e5e0d5;
+    padding: 28px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+.application-type {
+    color: #b88a00;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+.application-title {
+    color: #070748;
+    margin: 8px 0;
+    font-family: Georgia, serif;
+}
+
+.application-company {
+    font-weight: bold;
+    margin: 6px 0;
+}
+
+.application-location,
+.application-date {
+    color: #666;
+    font-size: 14px;
+    margin: 6px 0;
+}
+
+.application-status-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 15px;
+}
+
+.application-status {
+    background: #f7f4ec;
+    color: #070748;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.application-button {
+    background: #070748;
+    color: white;
+    padding: 11px 18px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.application-button:hover {
+    background: #d4af37;
+    color: #070748;
+}
+
+@media (max-width: 700px) {
+    .application-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .application-status-box {
+        align-items: flex-start;
+    }
+
+    .applications-title {
+        font-size: 34px;
+    }
+}

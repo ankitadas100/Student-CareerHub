@@ -1,0 +1,147 @@
+.student-dashboard-page {
+    min-height: 100vh;
+    background-color: #f7f4ec;
+    color: #17202a;
+}
+
+
+/* Dashboard Header */
+
+.dashboard-header {
+    padding: 50px 8%;
+    background-color: #070748;
+    color: white;
+}
+
+.dashboard-label {
+    color: #d4af37;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.dashboard-title {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.dashboard-description {
+    color: #d9d9e5;
+    font-size: 15px;
+}
+
+
+/* Dashboard Content */
+
+.dashboard-content {
+    max-width: 1200px;
+    margin: auto;
+    padding: 45px 8%;
+}
+
+
+/* Quick Stats */
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.dashboard-stat-card {
+    padding: 25px;
+    background-color: white;
+    border-top: 4px solid #d4af37;
+}
+
+.dashboard-stat-number {
+    color: #070748;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.dashboard-stat-title {
+    color: #666;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+
+/* Main Sections */
+
+.dashboard-section {
+    margin-bottom: 40px;
+}
+
+.dashboard-section-title {
+    color: #070748;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 27px;
+    margin-bottom: 20px;
+}
+
+
+/* Opportunities */
+
+.dashboard-opportunities {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.dashboard-opportunity-card {
+    padding: 25px;
+    background-color: white;
+    border-left: 3px solid #d4af37;
+}
+
+.dashboard-opportunity-type {
+    color: #b88a00;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.dashboard-opportunity-title {
+    color: #070748;
+    font-size: 19px;
+    margin: 10px 0;
+}
+
+.dashboard-opportunity-company {
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.dashboard-opportunity-location {
+    color: #777;
+    font-size: 13px;
+}
+
+
+/* Dashboard Actions */
+
+.dashboard-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.dashboard-action-button {
+    padding: 12px 20px;
+    border: 1px solid #070748;
+    background-color: transparent;
+    color: #070748;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.dashboard-action-button:hover {
+    background-color: #070748;
+    color: white;
+}

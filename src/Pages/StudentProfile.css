@@ -1,0 +1,206 @@
+.student-profile-page {
+    min-height: 100vh;
+    background-color: #f7f4ec;
+    color: #17202a;
+}
+
+
+/* Header */
+
+.profile-header {
+    padding: 70px 8% 60px;
+    text-align: center;
+    background-color: #070748;
+    color: white;
+}
+
+.profile-label {
+    color: #d4af37;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.profile-title {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 42px;
+    margin-bottom: 15px;
+}
+
+.profile-description {
+    color: #d9d9e5;
+    font-size: 16px;
+}
+
+
+/* Main Content */
+
+.profile-content {
+    max-width: 1000px;
+    margin: auto;
+    padding: 55px 8% 80px;
+}
+
+
+/* Profile Card */
+
+.profile-card {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    padding: 30px;
+    background-color: white;
+    border-top: 4px solid #d4af37;
+    margin-bottom: 30px;
+}
+
+.profile-avatar {
+    width: 75px;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #070748;
+    color: #d4af37;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-name {
+    color: #070748;
+    font-size: 25px;
+    margin-bottom: 7px;
+}
+
+.profile-email,
+.profile-college {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.edit-profile-button {
+    padding: 11px 18px;
+    border: 1px solid #070748;
+    background-color: transparent;
+    color: #070748;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.edit-profile-button:hover {
+    background-color: #070748;
+    color: white;
+}
+
+
+/* Sections */
+
+.profile-section {
+    background-color: white;
+    padding: 30px;
+    margin-bottom: 25px;
+}
+
+.profile-section-title {
+    color: #070748;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+
+/* Education */
+
+.education-course {
+    color: #070748;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.education-college,
+.education-year {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+
+/* Skills */
+
+.profile-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.profile-skill {
+    padding: 7px 12px;
+    background-color: #f1eee5;
+    color: #070748;
+    font-size: 13px;
+}
+
+
+/* Projects */
+
+.profile-projects {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.project-card {
+    padding: 22px;
+    border-left: 3px solid #d4af37;
+    background-color: #f7f4ec;
+}
+
+.project-title {
+    color: #070748;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.project-description {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* Resume */
+
+.resume-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.resume-text {
+    color: #666;
+    font-size: 14px;
+}
+
+.resume-button {
+    padding: 11px 18px;
+    border: none;
+    background-color: #070748;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.resume-button:hover {
+    background-color: #d4af37;
+    color: #070748;
+}
