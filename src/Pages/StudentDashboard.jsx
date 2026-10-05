@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./StudentDashboard.css";
 
 function StudentDashboard() {
@@ -134,9 +135,12 @@ function StudentDashboard() {
                             MY PROFILE
                         </button>
 
-                        <button className="dashboard-action-button">
+                        <Link
+                            to="/my-applications"
+                            className="dashboard-action-button"
+                        >
                             MY APPLICATIONS
-                        </button>
+                        </Link>
 
                         <button className="dashboard-action-button">
                             SAVED OPPORTUNITIES
