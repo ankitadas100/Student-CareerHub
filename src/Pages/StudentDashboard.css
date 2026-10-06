@@ -123,12 +123,17 @@
 }
 
 
-/* Dashboard Actions */
-
-.dashboard-actions {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
+.dashboard-action {
+    background: transparent;
+    color: #070748;
+    border: 1px solid #070748;
+    padding: 18px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
 }
 
 .dashboard-action-button {

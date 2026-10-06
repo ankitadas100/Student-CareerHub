@@ -142,9 +142,12 @@ function StudentDashboard() {
                             MY APPLICATIONS
                         </Link>
 
-                        <button className="dashboard-action-button">
+                        <Link
+                            to="/saved-opportunities"
+                            className="dashboard-action"
+                        >
                             SAVED OPPORTUNITIES
-                        </button>
+                        </Link>
 
                         <button className="dashboard-action-button">
                             CAREER GUIDE

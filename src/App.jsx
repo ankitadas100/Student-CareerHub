@@ -17,6 +17,7 @@ import About  from "./Component/About";
 import StudentProfile from "./Pages/StudentProfile";
 import StudentDashboard from "./Pages/StudentDashboard";
 import MyApplications from "./Pages/MyApplications";
+import SavedOpportunities from "./Component/SavedOpportunities";
 function App() {
   return (
     <BrowserRouter>
@@ -64,6 +65,10 @@ function App() {
 <Route
     path="/my-applications"
     element={<MyApplications />}
+/>
+<Route
+    path="/saved-opportunities"
+    element={<SavedOpportunities />}
 />
         
 

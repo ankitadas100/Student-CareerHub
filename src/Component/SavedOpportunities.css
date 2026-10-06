@@ -1,0 +1,136 @@
+.saved-page {
+    min-height: 100vh;
+    background: #f7f4ec;
+    padding-bottom: 60px;
+}
+
+.saved-header {
+    background: #070748;
+    color: white;
+    text-align: center;
+    padding: 70px 20px;
+}
+
+.saved-label {
+    color: #d4af37;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.saved-title {
+    margin: 15px 0;
+    font-family: Georgia, serif;
+    font-size: 42px;
+}
+
+.saved-description {
+    max-width: 600px;
+    margin: auto;
+    line-height: 1.7;
+    color: #eeeeee;
+}
+
+.saved-content {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.saved-card {
+    background: white;
+    border: 1px solid #e5e0d5;
+    padding: 28px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+.saved-type {
+    color: #b88a00;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+.saved-job-title {
+    color: #070748;
+    margin: 8px 0;
+    font-family: Georgia, serif;
+}
+
+.saved-company {
+    font-weight: bold;
+    margin: 6px 0;
+}
+
+.saved-location {
+    color: #666;
+    font-size: 14px;
+}
+
+.saved-skills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.saved-skill {
+    background: #f7f4ec;
+    color: #070748;
+    padding: 6px 10px;
+    font-size: 12px;
+}
+
+.saved-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.saved-view-button {
+    background: #070748;
+    color: white;
+    padding: 11px 18px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.saved-remove-button {
+    background: transparent;
+    color: #070748;
+    border: 1px solid #070748;
+    padding: 10px 18px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.saved-view-button:hover {
+    background: #d4af37;
+    color: #070748;
+}
+
+.saved-remove-button:hover {
+    background: #070748;
+    color: white;
+}
+
+@media (max-width: 700px) {
+    .saved-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .saved-actions {
+        align-items: flex-start;
+    }
+
+    .saved-title {
+        font-size: 34px;
+    }
+}
