@@ -123,30 +123,78 @@
 }
 
 
-.dashboard-action {
-    background: transparent;
-    color: #070748;
-    border: 1px solid #070748;
-    padding: 18px 30px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    text-align: center;
+/* Quick Actions */
+
+.dashboard-actions {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
 }
 
+.dashboard-action,
 .dashboard-action-button {
-    padding: 12px 20px;
+    min-height: 90px;
+    padding: 20px;
     border: 1px solid #070748;
-    background-color: transparent;
+    background-color: white;
     color: #070748;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.3s ease;
+    box-sizing: border-box;
 }
 
+.dashboard-action:hover,
 .dashboard-action-button:hover {
     background-color: #070748;
     color: white;
+    border-color: #d4af37;
+    transform: translateY(-3px);
+}
+
+
+/* Responsive Design */
+
+@media (max-width: 1000px) {
+
+    .dashboard-actions {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-opportunities {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .dashboard-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-title {
+        font-size: 32px;
+    }
+
+    .dashboard-content {
+        padding: 35px 6%;
+    }
+
 }

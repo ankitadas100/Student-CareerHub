@@ -1,214 +1,164 @@
 import React from "react";
+import { useParams, Link } from "react-router-dom";
 import "./OpportunityDetails.css";
-import { useParams } from "react-router-dom";
 
 function OpportunityDetails() {
+
     const { id } = useParams();
+
     const opportunities = {
         frontend: {
             type: "INTERNSHIP",
             title: "Frontend Developer Intern",
             company: "ABC Technologies",
-            location: "Kolkata · Remote"
+            location: "Kolkata · Remote",
+            description:
+                "Join our team as a Frontend Developer Intern and work on modern web applications while gaining practical industry experience.",
+            skills: ["React", "JavaScript", "HTML", "CSS"]
         },
 
         software: {
             type: "FULL TIME",
             title: "Software Trainee",
             company: "XYZ Solutions",
-            location: "Kolkata"
+            location: "Kolkata",
+            description:
+                "Start your software development career with our trainee program and work with an experienced development team.",
+            skills: ["JavaScript", "Git", "SQL"]
         },
 
         uiux: {
             type: "INTERNSHIP",
             title: "UI/UX Design Intern",
             company: "Design Studio",
-            location: "Remote"
+            location: "Remote",
+            description:
+                "Work with designers to create user-friendly digital experiences and develop your practical UI/UX design skills.",
+            skills: ["Figma", "UI Design", "Prototyping"]
         }
     };
-  const opportunity = opportunities[id];
+
+    const opportunity = opportunities[id];
+
+    if (!opportunity) {
+        return (
+            <div className="opportunity-details-page">
+
+                <section className="opportunity-not-found">
+
+                    <h1 className="opportunity-not-found-title">
+                        Opportunity Not Found
+                    </h1>
+
+                    <p className="opportunity-not-found-text">
+                        The opportunity you are looking for does not exist.
+                    </p>
+
+                    <Link
+                        to="/opportunities"
+                        className="back-opportunities-button"
+                    >
+                        BACK TO OPPORTUNITIES
+                    </Link>
+
+                </section>
+
+            </div>
+        );
+    }
+const handleApply=()=>{
+    
+const application={
+title:opportunity.title,
+company:opportunity.company,
+location:opportunity.location,
+type:opportunity.type,
+  appliedDate: new Date().toLocaleDateString(),
+status:"application Sent"
+};
+console.log(application)
+}
     return (
+        <div className="opportunity-details-page">
 
-        <div className="details-page">
+            <section className="opportunity-details-header">
 
-            <section className="details-header">
-
-                <p className="details-label">
-                    INTERNSHIP
+                <p className="opportunity-details-type">
+                    {opportunity.type}
                 </p>
 
-                <h1 className="details-title">
+                <h1 className="opportunity-details-title">
                     {opportunity.title}
                 </h1>
 
-                <p className="details-company">
+                <p className="opportunity-details-company">
                     {opportunity.company}
                 </p>
 
-                <p className="details-location">
+                <p className="opportunity-details-location">
                     {opportunity.location}
                 </p>
 
             </section>
 
 
-            <section className="details-content">
+            <main className="opportunity-details-content">
 
-                <div className="details-main">
+                <section className="opportunity-description-section">
 
-                    <div className="details-section">
+                    <h2 className="opportunity-section-title">
+                        About the Opportunity
+                    </h2>
 
-                        <h2 className="details-heading">
-                            About the Opportunity
-                        </h2>
+                    <p className="opportunity-description">
+                        {opportunity.description}
+                    </p>
 
-                        <p className="details-description">
-                            We are looking for a motivated Frontend Developer
-                            Intern to join our team and work on modern web
-                            applications. This is a great opportunity for
-                            students and freshers to gain practical experience.
-                        </p>
-
-                    </div>
+                </section>
 
 
-                    <div className="details-section">
+                <section className="opportunity-skills-section">
 
-                        <h2 className="details-heading">
-                            Responsibilities
-                        </h2>
+                    <h2 className="opportunity-section-title">
+                        Required Skills
+                    </h2>
 
-                        <ul className="details-list">
+                    <div className="opportunity-details-skills">
 
-                            <li className="details-list-item">
-                                Build responsive web interfaces.
-                            </li>
-
-                            <li className="details-list-item">
-                                Work with React and JavaScript.
-                            </li>
-
-                            <li className="details-list-item">
-                                Collaborate with the development team.
-                            </li>
-
-                            <li className="details-list-item">
-                                Test and improve website performance.
-                            </li>
-
-                        </ul>
-
-                    </div>
-
-
-                    <div className="details-section">
-
-                        <h2 className="details-heading">
-                            Required Skills
-                        </h2>
-
-                        <div className="details-skills">
-
-                            <span className="details-skill">
-                                React
+                        {opportunity.skills.map((skill) => (
+                            <span
+                                className="opportunity-detail-skill"
+                                key={skill}
+                            >
+                                {skill}
                             </span>
-
-                            <span className="details-skill">
-                                JavaScript
-                            </span>
-
-                            <span className="details-skill">
-                                HTML
-                            </span>
-
-                            <span className="details-skill">
-                                CSS
-                            </span>
-
-                            <span className="details-skill">
-                                Git
-                            </span>
-
-                        </div>
+                        ))}
 
                     </div>
 
-
-                    <div className="details-section">
-
-                        <h2 className="details-heading">
-                            Eligibility
-                        </h2>
-
-                        <p className="details-description">
-                            Students pursuing a degree in Computer Science,
-                            Information Technology, or a related field.
-                            Freshers are welcome to apply.
-                        </p>
-
-                    </div>
-
-                </div>
+                </section>
 
 
-                <aside className="details-sidebar">
+                <section className="opportunity-action-section">
 
-                    <div className="apply-box">
+                    <button
+                        className="apply-button"
+                        type="button"
+                        onClick={handleApply}
+                    >
+                        APPLY NOW →
+                    </button>
 
-                        <h2 className="apply-title">
-                            Ready to Apply?
-                        </h2>
+                    <Link
+                        to="/opportunities"
+                        className="back-opportunities-link"
+                    >
+                        ← BACK TO OPPORTUNITIES
+                    </Link>
 
-                        <p className="apply-text">
-                            Take the next step toward your career.
-                        </p>
+                </section>
 
-                        <button className="apply-button">
-                            APPLY NOW →
-                        </button>
-
-                    </div>
-
-
-                    <div className="job-info">
-
-                        <h3 className="job-info-title">
-                            Opportunity Details
-                        </h3>
-
-                        <p className="job-info-item">
-                            <strong className="job-info-label">
-                                Type:
-                            </strong>
-                            Internship
-                        </p>
-
-                        <p className="job-info-item">
-                            <strong className="job-info-label">
-                                Location:
-                            </strong>
-                            Kolkata / Remote
-                        </p>
-
-                        <p className="job-info-item">
-                            <strong className="job-info-label">
-                                Experience:
-                            </strong>
-                            Fresher
-                        </p>
-
-                        <p className="job-info-item">
-                            <strong className="job-info-label">
-                                Duration:
-                            </strong>
-                            3 - 6 Months
-                        </p>
-
-                    </div>
-
-                </aside>
-
-            </section>
+            </main>
 
         </div>
     );
