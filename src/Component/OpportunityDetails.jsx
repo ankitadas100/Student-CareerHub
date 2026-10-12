@@ -1,8 +1,9 @@
-import React from "react";
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import "./OpportunityDetails.css";
 
 function OpportunityDetails() {
+    const [isApplied, setIsApplied] = useState(false);
 
     const { id } = useParams();
 
@@ -66,18 +67,19 @@ function OpportunityDetails() {
             </div>
         );
     }
-const handleApply=()=>{
-    
-const application={
-title:opportunity.title,
-company:opportunity.company,
-location:opportunity.location,
-type:opportunity.type,
-  appliedDate: new Date().toLocaleDateString(),
-status:"application Sent"
-};
-console.log(application)
-}
+    const handleApply = () => {
+
+        const application = {
+            title: opportunity.title,
+            company: opportunity.company,
+            location: opportunity.location,
+            type: opportunity.type,
+            appliedDate: new Date().toLocaleDateString(),
+            status: "application Sent"
+        };
+        console.log(application)
+        setIsApplied(true)
+    }
     return (
         <div className="opportunity-details-page">
 
@@ -139,15 +141,35 @@ console.log(application)
                 </section>
 
 
+               
                 <section className="opportunity-action-section">
 
-                    <button
-                        className="apply-button"
-                        type="button"
-                        onClick={handleApply}
-                    >
-                        APPLY NOW →
-                    </button>
+                    {isApplied ? (
+                        <div className="application-success">
+                            <h2 className="application-success-title">
+                                ✓ Application Submitted!
+                            </h2>
+
+                            <p className="application-success-message">
+                                Your application has been successfully submitted.
+                            </p>
+
+                            <Link
+                                to="/my-applications"
+                                className="view-applications-button"
+                            >
+                                VIEW MY APPLICATIONS →
+                            </Link>
+                        </div>
+                    ) : (
+                        <button
+                            className="apply-button"
+                            type="button"
+                            onClick={handleApply}
+                        >
+                            APPLY NOW →
+                        </button>
+                    )}
 
                     <Link
                         to="/opportunities"
@@ -156,11 +178,13 @@ console.log(application)
                         ← BACK TO OPPORTUNITIES
                     </Link>
 
-                </section>
+              
 
-            </main>
+            </section>
 
-        </div>
+        </main>
+
+        </div >
     );
 }
 
