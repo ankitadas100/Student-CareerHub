@@ -279,26 +279,58 @@ function ApplicationForm() {
                         </div>
                     </div>
 
+                   
                     <div className="application-field">
                         <label className="application-field-label" htmlFor="resume">
-                            Resume URL *
+                            Upload Resume (PDF) *
                         </label>
 
                         <input
                             className="application-input"
                             id="resume"
                             name="resume"
-                            type="url"
-                            placeholder="https://your-resume-link.com"
-                            value={formData.resume}
-                            onChange={handleChange}
+                            type="file"
+                            accept=".pdf,application/pdf"
+                            onChange={(e) => {
+                                const file = e.target.files[0];
+
+                                if (file && file.type !== "application/pdf") {
+                                    setError("Please upload a PDF resume.");
+                                    e.target.value = "";
+                                    return;
+                                }
+
+                                if (file && file.size > 2 * 1024 * 1024) {
+                                    setError("Resume must be smaller than 2 MB.");
+                                    e.target.value = "";
+                                    return;
+                                }
+
+                                setError("");
+                                setFormData({
+                                    ...formData,
+                                    resume: file || null
+                                });
+                            }}
                             required
                         />
 
                         <p className="application-field-help">
-                            Paste a shareable link to your resume.
+                            PDF format only. Maximum file size: 2 MB.
                         </p>
                     </div>
+
+                    {/* 
+                            <p className="application-field-help">
+                                Paste a shareable link to your resume.
+                            </p>
+                        </div> */}
+
+
+                    {/* <p className="application-field-help">
+                            Paste a shareable link to your resume.
+                        </p>
+                    </div> */}
 
                     <div className="application-field">
                         <label className="application-field-label" htmlFor="coverLetter">
