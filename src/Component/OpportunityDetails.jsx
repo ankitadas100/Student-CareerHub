@@ -67,19 +67,19 @@ function OpportunityDetails() {
             </div>
         );
     }
-    const handleApply = () => {
+    // const handleApply = () => {
 
-        const application = {
-            title: opportunity.title,
-            company: opportunity.company,
-            location: opportunity.location,
-            type: opportunity.type,
-            appliedDate: new Date().toLocaleDateString(),
-            status: "application Sent"
-        };
-        console.log(application)
-        setIsApplied(true)
-    }
+    //     const application = {
+    //         title: opportunity.title,
+    //         company: opportunity.company,
+    //         location: opportunity.location,
+    //         type: opportunity.type,
+    //         appliedDate: new Date().toLocaleDateString(),
+    //         status: "application Sent"
+    //     };
+    //     console.log(application)
+    //     setIsApplied(true)
+    // }
     return (
         <div className="opportunity-details-page">
 
@@ -141,7 +141,7 @@ function OpportunityDetails() {
                 </section>
 
 
-               
+
                 <section className="opportunity-action-section">
 
                     {isApplied ? (
@@ -162,13 +162,12 @@ function OpportunityDetails() {
                             </Link>
                         </div>
                     ) : (
-                        <button
+                        <Link
+                            to={`/apply/${id}`}
                             className="apply-button"
-                            type="button"
-                            onClick={handleApply}
                         >
                             APPLY NOW →
-                        </button>
+                        </Link>
                     )}
 
                     <Link
@@ -178,11 +177,11 @@ function OpportunityDetails() {
                         ← BACK TO OPPORTUNITIES
                     </Link>
 
-              
 
-            </section>
 
-        </main>
+                </section>
+
+            </main>
 
         </div >
     );

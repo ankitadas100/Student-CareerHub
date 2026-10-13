@@ -18,6 +18,7 @@ import StudentProfile from "./Pages/StudentProfile";
 import StudentDashboard from "./Pages/StudentDashboard";
 import MyApplications from "./Pages/MyApplications";
 import SavedOpportunities from "./Component/SavedOpportunities";
+import ApplicationForm from "./Pages/ApplicationForm";
 function App() {
   return (
     <BrowserRouter>
@@ -69,6 +70,10 @@ function App() {
 <Route
     path="/saved-opportunities"
     element={<SavedOpportunities />}
+/>
+<Route
+    path="/apply/:id"
+    element={<ApplicationForm />}
 />
         
 
