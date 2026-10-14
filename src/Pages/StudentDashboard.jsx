@@ -1,8 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./StudentDashboard.css";
 
 function StudentDashboard() {
+    const [applications, setApplications] = useState([]);
+const [savedCount, setSavedCount] = useState(0);
+
+useEffect(() => {
+    const loadDashboardData = () => {
+        try {
+            const storedApplications = JSON.parse(
+                localStorage.getItem("applications") || "[]"
+            );
+
+            const storedSaved = JSON.parse(
+                localStorage.getItem("savedOpportunities") || "[]"
+            );
+
+            setApplications(
+                Array.isArray(storedApplications)
+                    ? storedApplications
+                    : []
+            );
+
+            setSavedCount(
+                Array.isArray(storedSaved)
+                    ? new Set(
+                        storedSaved.map((item) =>
+                            typeof item === "string" ? item : item.id
+                        )
+                    ).size
+                    : 0
+            );
+        } catch {
+            setApplications([]);
+            setSavedCount(0);
+        }
+    };
+
+    loadDashboardData();
+
+    window.addEventListener("focus", loadDashboardData);
+
+    return () => {
+        window.removeEventListener("focus", loadDashboardData);
+    };
+}, []);
     return (
         <div className="student-dashboard-page">
 
@@ -31,8 +74,8 @@ function StudentDashboard() {
                     <div className="dashboard-stat-card">
 
                         <p className="dashboard-stat-number">
-                            3
-                        </p>
+    {applications.length}
+</p>
 
                         <p className="dashboard-stat-title">
                             Applications
@@ -44,8 +87,8 @@ function StudentDashboard() {
                     <div className="dashboard-stat-card">
 
                         <p className="dashboard-stat-number">
-                            5
-                        </p>
+    {savedCount}
+</p>
 
                         <p className="dashboard-stat-title">
                             Saved Opportunities
@@ -121,6 +164,57 @@ function StudentDashboard() {
                     </div>
 
                 </section>
+                <section className="dashboard-section">
+    <h2 className="dashboard-section-title">
+        Recent Applications
+    </h2>
+
+    {applications.length > 0 ? (
+        <div className="dashboard-opportunities">
+            {[...applications]
+                .reverse()
+                .slice(0, 3)
+                .map((application, index) => (
+                    <div
+                        className="dashboard-opportunity-card"
+                        key={`${application.id}-${index}`}
+                    >
+                        <p className="dashboard-opportunity-type">
+                            {application.type}
+                        </p>
+
+                        <h3 className="dashboard-opportunity-title">
+                            {application.title}
+                        </h3>
+
+                        <p className="dashboard-opportunity-company">
+                            {application.company}
+                        </p>
+
+                        <p className="dashboard-opportunity-location">
+                            Applied: {application.appliedDate}
+                        </p>
+
+                        <p className="dashboard-opportunity-location">
+                            Status: {application.status}
+                        </p>
+
+                        <Link
+                            to="/my-applications"
+                            className="dashboard-action-button"
+                        >
+                            VIEW APPLICATION →
+                        </Link>
+                    </div>
+                ))}
+        </div>
+    ) : (
+        <p className="dashboard-description">
+            You haven't applied for any opportunities yet.
+            Explore opportunities to get started.
+        </p>
+    )}
+</section>
 
 
                 <section className="dashboard-section">
