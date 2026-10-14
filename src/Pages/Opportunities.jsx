@@ -7,6 +7,15 @@ function Opportunities() {
     const [search, setSearch] = useState("");
     const [type, setType] = useState("");
     const [location, setLocation] = useState("");
+const [savedIds, setSavedIds] = useState(() => {
+    try {
+        return JSON.parse(
+            localStorage.getItem("savedOpportunities") || "[]"
+        );
+    } catch {
+        return [];
+    }
+});
 
     const opportunities = [
         {
@@ -34,7 +43,20 @@ function Opportunities() {
             skills: ["Figma", "UI Design", "Prototyping"]
         }
     ];
+const handleSave = (id) => {
+    const isSaved = savedIds.includes(id);
 
+    const updatedIds = isSaved
+        ? savedIds.filter((savedId) => savedId !== id)
+        : [...savedIds, id];
+
+    localStorage.setItem(
+        "savedOpportunities",
+        JSON.stringify(updatedIds)
+    );
+
+    setSavedIds(updatedIds);
+};
     const filteredOpportunities = opportunities.filter((opportunity) => {
 
         const searchText = search.toLowerCase();
@@ -190,7 +212,15 @@ function Opportunities() {
                             >
                                 VIEW DETAILS →
                             </Link>
-
+<button
+    type="button"
+    className="save-opportunity-button"
+    onClick={() => handleSave(opportunity.id)}
+>
+    {savedIds.includes(opportunity.id)
+        ? "♥ SAVED"
+        : "♡ SAVE OPPORTUNITY"}
+</button>
                         </div>
 
                     ))

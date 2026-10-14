@@ -254,3 +254,29 @@
         padding: 24px;
     }
 }
+
+.save-opportunity-button {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: #ffffff;
+    color: #070748;
+    border: 1px solid #070748;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.save-opportunity-button:hover {
+    background: #f7f4ec;
+    border-color: #d4af37;
+}
+
+.save-opportunity-button:focus-visible {
+    outline: 2px solid #d4af37;
+    outline-offset: 3px;
+}
+

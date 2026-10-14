@@ -134,3 +134,36 @@
         font-size: 34px;
     }
 }
+
+.saved-empty {
+    background: #ffffff;
+    border: 1px solid #e5dfd2;
+    border-radius: 6px;
+    padding: 45px 24px;
+    text-align: center;
+    grid-column: 1 / -1;
+}
+
+.saved-empty-title {
+    color: #070748;
+    font-family: Georgia, serif;
+    font-size: 26px;
+    margin: 0 0 12px;
+}
+
+.saved-empty-description {
+    color: #626875;
+    line-height: 1.7;
+    margin: 0 auto 24px;
+    max-width: 520px;
+}
+
+.saved-view-button {
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+}
+
+.saved-remove-button {
+    cursor: pointer;
+}
