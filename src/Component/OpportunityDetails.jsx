@@ -1,11 +1,12 @@
+
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
 import "./OpportunityDetails.css";
 
 function OpportunityDetails() {
-    const [isApplied, setIsApplied] = useState(false);
-
     const { id } = useParams();
+    const navigate = useNavigate();
+    const [showDuplicateMessage, setShowDuplicateMessage] = useState(false);
 
     const opportunities = {
         frontend: {
@@ -17,7 +18,6 @@ function OpportunityDetails() {
                 "Join our team as a Frontend Developer Intern and work on modern web applications while gaining practical industry experience.",
             skills: ["React", "JavaScript", "HTML", "CSS"]
         },
-
         software: {
             type: "FULL TIME",
             title: "Software Trainee",
@@ -27,7 +27,6 @@ function OpportunityDetails() {
                 "Start your software development career with our trainee program and work with an experienced development team.",
             skills: ["JavaScript", "Git", "SQL"]
         },
-
         uiux: {
             type: "INTERNSHIP",
             title: "UI/UX Design Intern",
@@ -41,12 +40,36 @@ function OpportunityDetails() {
 
     const opportunity = opportunities[id];
 
+    const handleApplyClick = () => {
+        let applications = [];
+
+        try {
+            applications = JSON.parse(
+                localStorage.getItem("applications") || "[]"
+            );
+
+            if (!Array.isArray(applications)) {
+                applications = [];
+            }
+        } catch {
+            applications = [];
+        }
+
+        const alreadyApplied = applications.some(
+            (application) => application.id === id
+        );
+
+        if (alreadyApplied) {
+            setShowDuplicateMessage(true);
+        } else {
+            navigate(`/apply/${id}`);
+        }
+    };
+
     if (!opportunity) {
         return (
             <div className="opportunity-details-page">
-
                 <section className="opportunity-not-found">
-
                     <h1 className="opportunity-not-found-title">
                         Opportunity Not Found
                     </h1>
@@ -61,30 +84,14 @@ function OpportunityDetails() {
                     >
                         BACK TO OPPORTUNITIES
                     </Link>
-
                 </section>
-
             </div>
         );
     }
-    // const handleApply = () => {
 
-    //     const application = {
-    //         title: opportunity.title,
-    //         company: opportunity.company,
-    //         location: opportunity.location,
-    //         type: opportunity.type,
-    //         appliedDate: new Date().toLocaleDateString(),
-    //         status: "application Sent"
-    //     };
-    //     console.log(application)
-    //     setIsApplied(true)
-    // }
     return (
         <div className="opportunity-details-page">
-
             <section className="opportunity-details-header">
-
                 <p className="opportunity-details-type">
                     {opportunity.type}
                 </p>
@@ -100,14 +107,10 @@ function OpportunityDetails() {
                 <p className="opportunity-details-location">
                     {opportunity.location}
                 </p>
-
             </section>
 
-
             <main className="opportunity-details-content">
-
                 <section className="opportunity-description-section">
-
                     <h2 className="opportunity-section-title">
                         About the Opportunity
                     </h2>
@@ -115,18 +118,14 @@ function OpportunityDetails() {
                     <p className="opportunity-description">
                         {opportunity.description}
                     </p>
-
                 </section>
 
-
                 <section className="opportunity-skills-section">
-
                     <h2 className="opportunity-section-title">
                         Required Skills
                     </h2>
 
                     <div className="opportunity-details-skills">
-
                         {opportunity.skills.map((skill) => (
                             <span
                                 className="opportunity-detail-skill"
@@ -135,23 +134,18 @@ function OpportunityDetails() {
                                 {skill}
                             </span>
                         ))}
-
                     </div>
-
                 </section>
 
-
-
                 <section className="opportunity-action-section">
-
-                    {isApplied ? (
+                    {showDuplicateMessage ? (
                         <div className="application-success">
                             <h2 className="application-success-title">
-                                ✓ Application Submitted!
+                                Already Applied
                             </h2>
 
                             <p className="application-success-message">
-                                Your application has been successfully submitted.
+                                You have already applied for this opportunity.
                             </p>
 
                             <Link
@@ -162,12 +156,13 @@ function OpportunityDetails() {
                             </Link>
                         </div>
                     ) : (
-                        <Link
-                            to={`/apply/${id}`}
+                        <button
+                            type="button"
                             className="apply-button"
+                            onClick={handleApplyClick}
                         >
                             APPLY NOW →
-                        </Link>
+                        </button>
                     )}
 
                     <Link
@@ -176,14 +171,9 @@ function OpportunityDetails() {
                     >
                         ← BACK TO OPPORTUNITIES
                     </Link>
-
-
-
                 </section>
-
             </main>
-
-        </div >
+        </div>
     );
 }
 

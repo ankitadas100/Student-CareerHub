@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./ApplicationForm.css";
@@ -31,28 +32,82 @@ function ApplicationForm() {
         phone: "",
         college: "",
         graduationYear: "",
-        resume: "",
+        resume: null,
         coverLetter: ""
     });
 
-    const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState("");
+    const [submitted, setSubmitted] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
 
-        setFormData({
-            ...formData,
+        setFormData((previousData) => ({
+            ...previousData,
             [name]: value
-        });
+        }));
+
+        setError("");
+    };
+
+    const handleResumeChange = (e) => {
+        const file = e.target.files[0];
+
+        if (!file) {
+            setFormData((previousData) => ({
+                ...previousData,
+                resume: null
+            }));
+            return;
+        }
+
+        const isPDF =
+            file.type === "application/pdf" ||
+            file.name.toLowerCase().endsWith(".pdf");
+
+        if (!isPDF) {
+            setError("Please upload your resume in PDF format.");
+            e.target.value = "";
+            return;
+        }
+
+        if (file.size > 2 * 1024 * 1024) {
+            setError("Your resume must be 2 MB or smaller.");
+            e.target.value = "";
+            return;
+        }
+
+        setFormData((previousData) => ({
+            ...previousData,
+            resume: file
+        }));
+
+        setError("");
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setError("");
 
-        const applications =
-            JSON.parse(localStorage.getItem("applications")) || [];
+        if (!formData.resume) {
+            setError("Please upload your resume before submitting.");
+            return;
+        }
+
+        let applications = [];
+
+        try {
+            applications = JSON.parse(
+                localStorage.getItem("applications") || "[]"
+            );
+
+            if (!Array.isArray(applications)) {
+                applications = [];
+            }
+        } catch {
+            setError("Unable to read saved applications. Please try again.");
+            return;
+        }
 
         const alreadyApplied = applications.some(
             (application) => application.id === id
@@ -68,34 +123,55 @@ function ApplicationForm() {
             title: opportunity.title,
             company: opportunity.company,
             type: opportunity.type,
-            ...formData,
+            fullName: formData.fullName.trim(),
+            email: formData.email.trim(),
+            phone: formData.phone,
+            college: formData.college.trim(),
+            graduationYear: formData.graduationYear,
+            resume: {
+                name: formData.resume.name,
+                size: formData.resume.size,
+                type: formData.resume.type
+            },
+            coverLetter: formData.coverLetter.trim(),
             appliedDate: new Date().toLocaleDateString(),
             status: "Application Sent"
         };
 
-        localStorage.setItem(
-            "applications",
-            JSON.stringify([...applications, application])
-        );
+        try {
+            localStorage.setItem(
+                "applications",
+                JSON.stringify([...applications, application])
+            );
 
-        setSubmitted(true);
+            setSubmitted(true);
+        } catch {
+            setError("Unable to save your application. Please try again.");
+        }
     };
 
     if (!opportunity) {
         return (
             <div className="application-page">
-                <div className="application-not-found">
+                <section className="application-not-found">
+                    <p className="application-label">CAREERSPRING</p>
+
                     <h1 className="application-not-found-title">
                         Opportunity Not Found
                     </h1>
 
+                    <p className="application-description">
+                        This opportunity may have been removed or the link
+                        may be incorrect.
+                    </p>
+
                     <Link
                         to="/opportunities"
-                        className="application-back-link"
+                        className="application-submit-button"
                     >
-                        BACK TO OPPORTUNITIES
+                        EXPLORE OPPORTUNITIES →
                     </Link>
-                </div>
+                </section>
             </div>
         );
     }
@@ -106,17 +182,20 @@ function ApplicationForm() {
                 <section className="application-success">
                     <div className="application-success-icon">✓</div>
 
-                    <p className="application-label">
-                        CAREERSPRING
-                    </p>
+                    <p className="application-label">CAREERSPRING</p>
 
                     <h1 className="application-success-title">
                         Application Submitted!
                     </h1>
 
                     <p className="application-success-message">
-                        Your application for {opportunity.title} at{" "}
-                        {opportunity.company} has been submitted successfully.
+                        Thank you, {formData.fullName.trim()}! Your application
+                        for {opportunity.title} at {opportunity.company} has
+                        been saved successfully.
+                    </p>
+
+                    <p className="application-field-help">
+                        Resume selected: {formData.resume?.name}
                     </p>
 
                     <Link
@@ -140,16 +219,14 @@ function ApplicationForm() {
     return (
         <div className="application-page">
             <header className="application-header">
-                <p className="application-label">
-                    CAREER OPPORTUNITIES
-                </p>
+                <p className="application-label">CAREER OPPORTUNITIES</p>
 
                 <h1 className="application-title">
-                    Apply for Your Next Opportunity
+                    Take the Next Step in Your Career
                 </h1>
 
                 <p className="application-description">
-                    Complete your details to submit your application.
+                    Complete your student profile and submit your application.
                 </p>
             </header>
 
@@ -176,8 +253,15 @@ function ApplicationForm() {
                         Student Information
                     </h2>
 
+                    <p className="application-field-help">
+                        Fields marked with * are required.
+                    </p>
+
                     <div className="application-field">
-                        <label className="application-field-label" htmlFor="fullName">
+                        <label
+                            className="application-field-label"
+                            htmlFor="fullName"
+                        >
                             Full Name *
                         </label>
 
@@ -189,13 +273,17 @@ function ApplicationForm() {
                             placeholder="Enter your full name"
                             value={formData.fullName}
                             onChange={handleChange}
+                            autoComplete="name"
                             required
                         />
                     </div>
 
                     <div className="application-form-row">
                         <div className="application-field">
-                            <label className="application-field-label" htmlFor="email">
+                            <label
+                                className="application-field-label"
+                                htmlFor="email"
+                            >
                                 Email Address *
                             </label>
 
@@ -207,12 +295,16 @@ function ApplicationForm() {
                                 placeholder="you@example.com"
                                 value={formData.email}
                                 onChange={handleChange}
+                                autoComplete="email"
                                 required
                             />
                         </div>
 
                         <div className="application-field">
-                            <label className="application-field-label" htmlFor="phone">
+                            <label
+                                className="application-field-label"
+                                htmlFor="phone"
+                            >
                                 Phone Number *
                             </label>
 
@@ -222,10 +314,12 @@ function ApplicationForm() {
                                 name="phone"
                                 type="tel"
                                 pattern="[0-9]{10}"
+                                minLength={10}
                                 maxLength={10}
                                 placeholder="10-digit mobile number"
                                 value={formData.phone}
                                 onChange={handleChange}
+                                autoComplete="tel"
                                 required
                             />
                         </div>
@@ -233,7 +327,10 @@ function ApplicationForm() {
 
                     <div className="application-form-row">
                         <div className="application-field">
-                            <label className="application-field-label" htmlFor="college">
+                            <label
+                                className="application-field-label"
+                                htmlFor="college"
+                            >
                                 College / University *
                             </label>
 
@@ -250,7 +347,10 @@ function ApplicationForm() {
                         </div>
 
                         <div className="application-field">
-                            <label className="application-field-label" htmlFor="graduationYear">
+                            <label
+                                className="application-field-label"
+                                htmlFor="graduationYear"
+                            >
                                 Graduation Year *
                             </label>
 
@@ -263,6 +363,7 @@ function ApplicationForm() {
                                 required
                             >
                                 <option value="">Select year</option>
+
                                 {Array.from(
                                     { length: 8 },
                                     (_, index) => 2026 + index
@@ -279,9 +380,11 @@ function ApplicationForm() {
                         </div>
                     </div>
 
-                   
                     <div className="application-field">
-                        <label className="application-field-label" htmlFor="resume">
+                        <label
+                            className="application-field-label"
+                            htmlFor="resume"
+                        >
                             Upload Resume (PDF) *
                         </label>
 
@@ -291,50 +394,27 @@ function ApplicationForm() {
                             name="resume"
                             type="file"
                             accept=".pdf,application/pdf"
-                            onChange={(e) => {
-                                const file = e.target.files[0];
-
-                                if (file && file.type !== "application/pdf") {
-                                    setError("Please upload a PDF resume.");
-                                    e.target.value = "";
-                                    return;
-                                }
-
-                                if (file && file.size > 2 * 1024 * 1024) {
-                                    setError("Resume must be smaller than 2 MB.");
-                                    e.target.value = "";
-                                    return;
-                                }
-
-                                setError("");
-                                setFormData({
-                                    ...formData,
-                                    resume: file || null
-                                });
-                            }}
+                            onChange={handleResumeChange}
                             required
                         />
 
                         <p className="application-field-help">
                             PDF format only. Maximum file size: 2 MB.
                         </p>
+
+                        {formData.resume && (
+                            <p className="application-field-help">
+                                Selected file: {formData.resume.name}
+                            </p>
+                        )}
                     </div>
 
-                    {/* 
-                            <p className="application-field-help">
-                                Paste a shareable link to your resume.
-                            </p>
-                        </div> */}
-
-
-                    {/* <p className="application-field-help">
-                            Paste a shareable link to your resume.
-                        </p>
-                    </div> */}
-
                     <div className="application-field">
-                        <label className="application-field-label" htmlFor="coverLetter">
-                            Cover Letter
+                        <label
+                            className="application-field-label"
+                            htmlFor="coverLetter"
+                        >
+                            Cover Letter (Optional)
                         </label>
 
                         <textarea
@@ -349,7 +429,10 @@ function ApplicationForm() {
                     </div>
 
                     {error && (
-                        <p className="application-error">
+                        <p
+                            className="application-error"
+                            role="alert"
+                        >
                             {error}
                         </p>
                     )}

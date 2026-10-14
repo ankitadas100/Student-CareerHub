@@ -1,118 +1,206 @@
-.applications-page {
+
+.my-applications-page {
     min-height: 100vh;
     background: #f7f4ec;
+    color: #17202a;
     padding-bottom: 60px;
 }
 
-.applications-header {
+.my-applications-header {
     background: #070748;
-    color: white;
+    color: #ffffff;
     text-align: center;
-    padding: 70px 20px;
+    padding: 55px 20px;
 }
 
-.applications-label {
+.my-applications-label {
     color: #d4af37;
     font-size: 13px;
-    font-weight: bold;
+    font-weight: 700;
     letter-spacing: 2px;
+    margin-bottom: 15px;
 }
 
-.applications-title {
-    margin: 15px 0;
+.my-applications-title {
     font-family: Georgia, serif;
-    font-size: 42px;
+    font-size: clamp(30px, 4vw, 44px);
+    margin: 0 0 15px;
 }
 
-.applications-description {
-    max-width: 650px;
-    margin: auto;
+.my-applications-description {
+    color: #e7e7f5;
+    margin: 0;
     line-height: 1.7;
-    color: #eeeeee;
 }
 
-.applications-content {
-    max-width: 1000px;
-    margin: 50px auto;
-    padding: 0 20px;
+.my-applications-content {
+    width: min(1150px, 92%);
+    margin: 40px auto;
+}
+
+.my-applications-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.my-applications-section-title {
+    color: #070748;
+    font-family: Georgia, serif;
+    font-size: 26px;
+    margin: 0;
+}
+
+.my-applications-count {
+    color: #555b66;
+    font-size: 15px;
+    margin: 0;
+}
+
+.applications-list {
+    display: grid;
+    gap: 20px;
 }
 
 .application-card {
-    background: white;
-    border: 1px solid #e5e0d5;
-    padding: 28px;
-    margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 30px;
+    gap: 25px;
+    background: #ffffff;
+    border: 1px solid #e5dfd2;
+    border-left: 5px solid #d4af37;
+    border-radius: 6px;
+    padding: 28px 32px;
+    box-shadow: 0 5px 18px rgba(7, 7, 72, 0.05);
 }
 
 .application-type {
     color: #b88a00;
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 700;
     letter-spacing: 1.5px;
+    margin: 0 0 14px;
 }
 
-.application-title {
+.application-job-title {
     color: #070748;
-    margin: 8px 0;
     font-family: Georgia, serif;
+    font-size: 25px;
+    margin: 0 0 10px;
 }
 
 .application-company {
-    font-weight: bold;
-    margin: 6px 0;
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0 0 10px;
 }
 
-.application-location,
-.application-date {
-    color: #666;
+.application-date,
+.application-resume {
+    color: #626875;
     font-size: 14px;
-    margin: 6px 0;
+    margin: 8px 0;
+    overflow-wrap: anywhere;
 }
 
 .application-status-box {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    gap: 15px;
+    align-items: stretch;
+    gap: 12px;
+    min-width: 155px;
 }
 
 .application-status {
     background: #f7f4ec;
     color: #070748;
-    padding: 8px 14px;
+    padding: 11px 14px;
+    text-align: center;
+    border-radius: 4px;
     font-size: 13px;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .application-button {
+    display: inline-block;
     background: #070748;
-    color: white;
-    padding: 11px 18px;
+    color: #ffffff;
+    border: 1px solid #070748;
+    border-radius: 3px;
+    padding: 12px 16px;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
     text-decoration: none;
-    font-size: 13px;
-    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
 .application-button:hover {
     background: #d4af37;
+    border-color: #d4af37;
     color: #070748;
 }
 
-@media (max-width: 700px) {
+.applications-empty {
+    background: #ffffff;
+    text-align: center;
+    padding: 55px 25px;
+    border: 1px solid #e5dfd2;
+    border-radius: 6px;
+}
+
+.applications-empty h2 {
+    color: #070748;
+    font-family: Georgia, serif;
+}
+
+.applications-empty p {
+    color: #626875;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.my-applications-back-link {
+    display: inline-block;
+    color: #070748;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    margin-top: 28px;
+}
+
+.my-applications-back-link:hover {
+    color: #b88a00;
+}
+
+@media (max-width: 650px) {
+    .my-applications-header {
+        padding: 40px 18px;
+    }
+
+    .my-applications-content {
+        width: 92%;
+        margin-top: 28px;
+    }
+
     .application-card {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
+        padding: 23px 20px;
     }
 
     .application-status-box {
-        align-items: flex-start;
+        width: 100%;
     }
 
-    .applications-title {
-        font-size: 34px;
+    .my-applications-summary {
+        align-items: flex-start;
+        flex-direction: column;
     }
 }

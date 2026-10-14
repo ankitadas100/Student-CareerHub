@@ -1,138 +1,136 @@
-import React from "react";
+
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./MyApplications.css";
 
 function MyApplications() {
+    const [applications, setApplications] = useState(() => {
+        try {
+            return JSON.parse(
+                localStorage.getItem("applications") || "[]"
+            );
+        } catch {
+            return [];
+        }
+    });
+
+    const handleRemove = (indexToRemove) => {
+        const updatedApplications = applications.filter(
+            (_, index) => index !== indexToRemove
+        );
+
+        localStorage.setItem(
+            "applications",
+            JSON.stringify(updatedApplications)
+        );
+
+        setApplications(updatedApplications);
+    };
+
     return (
-        <div className="applications-page">
+        <div className="my-applications-page">
+            <header className="my-applications-header">
+                <p className="my-applications-label">
+                    CAREERSPRING
+                </p>
 
-            <section className="applications-header">
-                <p className="applications-label">STUDENT PORTAL</p>
-
-                <h1 className="applications-title">
+                <h1 className="my-applications-title">
                     My Applications
                 </h1>
 
-                <p className="applications-description">
-                    Track the opportunities you have applied for and
-                    stay updated on your application progress.
+                <p className="my-applications-description">
+                    Track the opportunities you have applied for.
                 </p>
-            </section>
+            </header>
 
-            <section className="applications-content">
+            <main className="my-applications-content">
+                <div className="my-applications-summary">
+                    <h2 className="my-applications-section-title">
+                        Application History
+                    </h2>
 
-                <div className="application-card">
-                    <div className="application-info">
-                        <p className="application-type">
-                            INTERNSHIP
-                        </p>
-
-                        <h2 className="application-title">
-                            Frontend Developer Intern
-                        </h2>
-
-                        <p className="application-company">
-                            ABC Technologies
-                        </p>
-
-                        <p className="application-location">
-                            Kolkata · Remote
-                        </p>
-
-                        <p className="application-date">
-                            Applied on: 28 September 2026
-                        </p>
-                    </div>
-
-                    <div className="application-status-box">
-                        <span className="application-status">
-                            Under Review
-                        </span>
-
-                        <Link
-                            to="/opportunity-details/frontend"
-                            className="application-button"
-                        >
-                            VIEW DETAILS →
-                        </Link>
-                    </div>
+                    <p className="my-applications-count">
+                        Total Applications: {applications.length}
+                    </p>
                 </div>
 
-                <div className="application-card">
-                    <div className="application-info">
-                        <p className="application-type">
-                            FULL TIME
-                        </p>
+                {applications.length > 0 ? (
+                    <div className="applications-list">
+                        {applications.map((application, index) => (
+                            <article
+                                className="application-card"
+                                key={`${application.id}-${index}`}
+                            >
+                                <div className="application-info">
+                                    <p className="application-type">
+                                        {application.type}
+                                    </p>
 
-                        <h2 className="application-title">
-                            Software Trainee
-                        </h2>
+                                    <h2 className="application-job-title">
+                                        {application.title}
+                                    </h2>
 
-                        <p className="application-company">
-                            XYZ Solutions
-                        </p>
+                                    <p className="application-company">
+                                        {application.company}
+                                    </p>
 
-                        <p className="application-location">
-                            Kolkata
-                        </p>
+                                    <p className="application-date">
+                                        Applied on: {application.appliedDate}
+                                    </p>
 
-                        <p className="application-date">
-                            Applied on: 25 September 2026
-                        </p>
+                                    <p className="application-resume">
+                                        Resume: {application.resume?.name || "Not available"}
+                                    </p>
+                                </div>
+
+                                <div className="application-status-box">
+                                    <span className="application-status">
+                                        {application.status}
+                                    </span>
+
+                                    <Link
+                                        to={`/opportunity-details/${application.id}`}
+                                        className="application-button"
+                                    >
+                                        VIEW DETAILS
+                                    </Link>
+
+                                    <button
+                                        className="application-button"
+                                        type="button"
+                                        onClick={() => handleRemove(index)}
+                                    >
+                                        REMOVE
+                                    </button>
+                                </div>
+                            </article>
+                        ))}
                     </div>
+                ) : (
+                    <section className="applications-empty">
+                        <h2>No Applications Yet</h2>
 
-                    <div className="application-status-box">
-                        <span className="application-status">
-                            Application Sent
-                        </span>
+                        <p>
+                            You haven't applied for any opportunities yet.
+                            Explore available jobs and take your next career step.
+                        </p>
 
                         <Link
-                            to="/opportunity-details/software"
+                            to="/opportunities"
                             className="application-button"
                         >
-                            VIEW DETAILS →
+                            EXPLORE OPPORTUNITIES →
                         </Link>
-                    </div>
-                </div>
+                    </section>
+                )}
 
-                <div className="application-card">
-                    <div className="application-info">
-                        <p className="application-type">
-                            INTERNSHIP
-                        </p>
-
-                        <h2 className="application-title">
-                            UI/UX Design Intern
-                        </h2>
-
-                        <p className="application-company">
-                            Design Studio
-                        </p>
-
-                        <p className="application-location">
-                            Remote
-                        </p>
-
-                        <p className="application-date">
-                            Applied on: 20 September 2026
-                        </p>
-                    </div>
-
-                    <div className="application-status-box">
-                        <span className="application-status">
-                            Shortlisted
-                        </span>
-
-                        <Link
-                            to="/opportunity-details/uiux"
-                            className="application-button"
-                        >
-                            VIEW DETAILS →
-                        </Link>
-                    </div>
-                </div>
-
-            </section>
+                <Link
+                    to="/opportunities"
+                    className="my-applications-back-link"
+                >
+                    ← EXPLORE MORE OPPORTUNITIES
+                </Link>
+            </main>
         </div>
     );
 }
