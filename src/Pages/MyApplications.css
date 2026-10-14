@@ -180,8 +180,8 @@
 }
 
 @media (max-width: 650px) {
-    .my-applications-header {
-        padding: 40px 18px;
+      .application-card {
+        grid-template-columns: minmax(0, 1fr);
     }
 
     .my-applications-content {
@@ -190,9 +190,9 @@
     }
 
     .application-card {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 23px 20px;
+        display: grid;
+    grid-template-columns: minmax(0, 1fr) 180px;
+    gap: 24px;
     }
 
     .application-status-box {
@@ -203,4 +203,29 @@
         align-items: flex-start;
         flex-direction: column;
     }
+}
+.application-full-details {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 20px;
+    padding: 22px;
+    background: #f7f4ec;
+    border: 1px solid #e5dfd2;
+    border-radius: 5px;
+    overflow-wrap: anywhere;
+       grid-column: 1 / -1;
+}
+
+.application-details-title {
+    color: #070748;
+    font-family: Georgia, serif;
+    font-size: 20px;
+    margin: 0 0 16px;
+}
+
+.application-full-details p {
+    color: #454b55;
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 8px 0;
 }

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "./MyApplications.css";
 
 function MyApplications() {
+
     const [applications, setApplications] = useState(() => {
         try {
             return JSON.parse(
@@ -13,6 +14,7 @@ function MyApplications() {
             return [];
         }
     });
+    const [selectedApplication, setSelectedApplication] = useState(null);
 
     const handleRemove = (indexToRemove) => {
         const updatedApplications = applications.filter(
@@ -88,12 +90,17 @@ function MyApplications() {
                                         {application.status}
                                     </span>
 
-                                    <Link
-                                        to={`/opportunity-details/${application.id}`}
+                                    <button
+                                        type="button"
                                         className="application-button"
+                                        onClick={() =>
+                                            setSelectedApplication(
+                                                selectedApplication === index ? null : index
+                                            )
+                                        }
                                     >
-                                        VIEW DETAILS
-                                    </Link>
+                                        {selectedApplication === index ? "HIDE DETAILS" : "VIEW DETAILS"}
+                                    </button>
 
                                     <button
                                         className="application-button"
@@ -103,6 +110,42 @@ function MyApplications() {
                                         REMOVE
                                     </button>
                                 </div>
+                                {selectedApplication === index && (
+                                    <div className="application-full-details">
+                                        <h3 className="application-details-title">
+                                            Submitted Application Details
+                                        </h3>
+
+                                        <p>
+                                            <strong>Full Name:</strong> {application.fullName}
+                                        </p>
+
+                                        <p>
+                                            <strong>Email:</strong> {application.email}
+                                        </p>
+
+                                        <p>
+                                            <strong>Phone:</strong> {application.phone}
+                                        </p>
+
+                                        <p>
+                                            <strong>College:</strong> {application.college}
+                                        </p>
+
+                                        <p>
+                                            <strong>Graduation Year:</strong> {application.graduationYear}
+                                        </p>
+
+                                        <p>
+                                            <strong>Resume:</strong> {application.resume?.name || "Not available"}
+                                        </p>
+
+                                        <p>
+                                            <strong>Cover Letter:</strong>{" "}
+                                            {application.coverLetter || "No cover letter provided"}
+                                        </p>
+                                    </div>
+                                )}
                             </article>
                         ))}
                     </div>
