@@ -4,18 +4,46 @@ import { Link } from "react-router-dom";
 import "./MyApplications.css";
 
 function MyApplications() {
-
     const [applications, setApplications] = useState(() => {
         try {
-            return JSON.parse(
+            const savedApplications = JSON.parse(
                 localStorage.getItem("applications") || "[]"
             );
+
+            return Array.isArray(savedApplications)
+                ? savedApplications
+                : [];
         } catch {
             return [];
         }
     });
+
     const [selectedApplication, setSelectedApplication] = useState(null);
 
+    // Update application status
+    const handleStatusChange = (indexToUpdate, newStatus) => {
+        const updatedApplications = applications.map(
+            (application, index) => {
+                if (index === indexToUpdate) {
+                    return {
+                        ...application,
+                        status: newStatus
+                    };
+                }
+
+                return application;
+            }
+        );
+
+        localStorage.setItem(
+            "applications",
+            JSON.stringify(updatedApplications)
+        );
+
+        setApplications(updatedApplications);
+    };
+
+    // Remove an application
     const handleRemove = (indexToRemove) => {
         const updatedApplications = applications.filter(
             (_, index) => index !== indexToRemove
@@ -27,6 +55,22 @@ function MyApplications() {
         );
 
         setApplications(updatedApplications);
+
+        if (selectedApplication === indexToRemove) {
+            setSelectedApplication(null);
+        } else if (
+            selectedApplication !== null &&
+            selectedApplication > indexToRemove
+        ) {
+            setSelectedApplication(selectedApplication - 1);
+        }
+    };
+
+    // Toggle application details
+    const handleToggleDetails = (index) => {
+        setSelectedApplication(
+            selectedApplication === index ? null : index
+        );
     };
 
     return (
@@ -81,35 +125,78 @@ function MyApplications() {
                                     </p>
 
                                     <p className="application-resume">
-                                        Resume: {application.resume?.name || "Not available"}
+                                        Resume:{" "}
+                                        {application.resume?.name ||
+                                            "Not available"}
                                     </p>
                                 </div>
 
                                 <div className="application-status-box">
-                                    <span className="application-status">
-                                        {application.status}
-                                    </span>
+                                    <div className="application-status-control">
+                                        <label
+                                            className="application-status-label"
+                                            htmlFor={`status-${index}`}
+                                        >
+                                            Application Status
+                                        </label>
+
+                                        <select
+                                            id={`status-${index}`}
+                                            className="application-status-select"
+                                            value={
+                                                application.status ||
+                                                "Application Sent"
+                                            }
+                                            onChange={(e) =>
+                                                handleStatusChange(
+                                                    index,
+                                                    e.target.value
+                                                )
+                                            }
+                                        >
+                                            <option value="Application Sent">
+                                                Application Sent
+                                            </option>
+
+                                            <option value="Under Review">
+                                                Under Review
+                                            </option>
+
+                                            <option value="Shortlisted">
+                                                Shortlisted
+                                            </option>
+
+                                            <option value="Interview Scheduled">
+                                                Interview Scheduled
+                                            </option>
+
+                                            <option value="Rejected">
+                                                Rejected
+                                            </option>
+                                        </select>
+                                    </div>
 
                                     <button
                                         type="button"
                                         className="application-button"
                                         onClick={() =>
-                                            setSelectedApplication(
-                                                selectedApplication === index ? null : index
-                                            )
+                                            handleToggleDetails(index)
                                         }
                                     >
-                                        {selectedApplication === index ? "HIDE DETAILS" : "VIEW DETAILS"}
+                                        {selectedApplication === index
+                                            ? "HIDE DETAILS"
+                                            : "VIEW DETAILS"}
                                     </button>
 
                                     <button
-                                        className="application-button"
                                         type="button"
+                                        className="application-button"
                                         onClick={() => handleRemove(index)}
                                     >
                                         REMOVE
                                     </button>
                                 </div>
+
                                 {selectedApplication === index && (
                                     <div className="application-full-details">
                                         <h3 className="application-details-title">
@@ -117,32 +204,46 @@ function MyApplications() {
                                         </h3>
 
                                         <p>
-                                            <strong>Full Name:</strong> {application.fullName}
+                                            <strong>Full Name:</strong>{" "}
+                                            {application.fullName}
                                         </p>
 
                                         <p>
-                                            <strong>Email:</strong> {application.email}
+                                            <strong>Email:</strong>{" "}
+                                            {application.email}
                                         </p>
 
                                         <p>
-                                            <strong>Phone:</strong> {application.phone}
+                                            <strong>Phone:</strong>{" "}
+                                            {application.phone}
                                         </p>
 
                                         <p>
-                                            <strong>College:</strong> {application.college}
+                                            <strong>College:</strong>{" "}
+                                            {application.college}
                                         </p>
 
                                         <p>
-                                            <strong>Graduation Year:</strong> {application.graduationYear}
+                                            <strong>Graduation Year:</strong>{" "}
+                                            {application.graduationYear}
                                         </p>
 
                                         <p>
-                                            <strong>Resume:</strong> {application.resume?.name || "Not available"}
+                                            <strong>Resume:</strong>{" "}
+                                            {application.resume?.name ||
+                                                "Not available"}
                                         </p>
 
                                         <p>
                                             <strong>Cover Letter:</strong>{" "}
-                                            {application.coverLetter || "No cover letter provided"}
+                                            {application.coverLetter ||
+                                                "No cover letter provided"}
+                                        </p>
+
+                                        <p>
+                                            <strong>Current Status:</strong>{" "}
+                                            {application.status ||
+                                                "Application Sent"}
                                         </p>
                                     </div>
                                 )}
@@ -155,7 +256,8 @@ function MyApplications() {
 
                         <p>
                             You haven't applied for any opportunities yet.
-                            Explore available jobs and take your next career step.
+                            Explore available jobs and take your next career
+                            step.
                         </p>
 
                         <Link

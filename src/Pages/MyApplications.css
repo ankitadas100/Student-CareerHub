@@ -229,3 +229,33 @@
     line-height: 1.7;
     margin: 8px 0;
 }
+
+.application-status-control {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.application-status-label {
+    color: #070748;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.application-status-select {
+    width: 100%;
+    max-width: 230px;
+    padding: 10px 12px;
+    border: 1px solid #d4af37;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #070748;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.application-status-select:focus {
+    outline: 2px solid #d4af37;
+    outline-offset: 2px;
+}

@@ -26,19 +26,35 @@ function ApplicationForm() {
 
     const opportunity = opportunities[id];
 
-    const [formData, setFormData] = useState({
-        fullName: "",
-        email: "",
-        phone: "",
-        college: "",
-        graduationYear: "",
-        resume: null,
-        coverLetter: ""
+    // Load the student's profile when the form opens
+    const [formData, setFormData] = useState(() => {
+        let profile = {};
+
+        try {
+            profile = JSON.parse(
+                localStorage.getItem("studentProfile") || "{}"
+            );
+        } catch {
+            profile = {};
+        }
+
+        return {
+            fullName: profile.name || "",
+            email: profile.email || "",
+            phone: profile.phone || "",
+            college: profile.college || "",
+            graduationYear: profile.graduationYear
+                ? String(profile.graduationYear)
+                : "",
+            resume: null,
+            coverLetter: ""
+        };
     });
 
     const [error, setError] = useState("");
     const [submitted, setSubmitted] = useState(false);
 
+    // Handle text, email, select and textarea changes
     const handleChange = (e) => {
         const { name, value } = e.target;
 
@@ -50,6 +66,7 @@ function ApplicationForm() {
         setError("");
     };
 
+    // Validate the uploaded resume
     const handleResumeChange = (e) => {
         const file = e.target.files[0];
 
@@ -85,6 +102,7 @@ function ApplicationForm() {
         setError("");
     };
 
+    // Submit the application
     const handleSubmit = (e) => {
         e.preventDefault();
         setError("");
@@ -105,16 +123,26 @@ function ApplicationForm() {
                 applications = [];
             }
         } catch {
-            setError("Unable to read saved applications. Please try again.");
+            setError(
+                "Unable to read saved applications. Please try again."
+            );
             return;
         }
 
+        const normalizedEmail = formData.email.trim().toLowerCase();
+
+        // Prevent duplicate applications from the same email
         const alreadyApplied = applications.some(
-            (application) => application.id === id
+            (application) =>
+                application.id === id &&
+                application.email?.trim().toLowerCase() ===
+                    normalizedEmail
         );
 
         if (alreadyApplied) {
-            setError("You have already applied for this opportunity.");
+            setError(
+                "You have already applied for this opportunity with this email."
+            );
             return;
         }
 
@@ -123,16 +151,21 @@ function ApplicationForm() {
             title: opportunity.title,
             company: opportunity.company,
             type: opportunity.type,
+
+            // Save the values entered in this application form
             fullName: formData.fullName.trim(),
-            email: formData.email.trim(),
-            phone: formData.phone,
+            email: normalizedEmail,
+            phone: formData.phone.trim(),
             college: formData.college.trim(),
             graduationYear: formData.graduationYear,
+
+            // Save resume metadata
             resume: {
                 name: formData.resume.name,
                 size: formData.resume.size,
                 type: formData.resume.type
             },
+
             coverLetter: formData.coverLetter.trim(),
             appliedDate: new Date().toLocaleDateString(),
             status: "Application Sent"
@@ -146,23 +179,28 @@ function ApplicationForm() {
 
             setSubmitted(true);
         } catch {
-            setError("Unable to save your application. Please try again.");
+            setError(
+                "Unable to save your application. Please try again."
+            );
         }
     };
 
+    // Handle an invalid opportunity ID
     if (!opportunity) {
         return (
             <div className="application-page">
                 <section className="application-not-found">
-                    <p className="application-label">CAREERSPRING</p>
+                    <p className="application-label">
+                        CAREERSPRING
+                    </p>
 
                     <h1 className="application-not-found-title">
                         Opportunity Not Found
                     </h1>
 
                     <p className="application-description">
-                        This opportunity may have been removed or the link
-                        may be incorrect.
+                        This opportunity may have been removed or the
+                        link may be incorrect.
                     </p>
 
                     <Link
@@ -176,22 +214,27 @@ function ApplicationForm() {
         );
     }
 
+    // Application success page
     if (submitted) {
         return (
             <div className="application-page">
                 <section className="application-success">
-                    <div className="application-success-icon">✓</div>
+                    <div className="application-success-icon">
+                        ✓
+                    </div>
 
-                    <p className="application-label">CAREERSPRING</p>
+                    <p className="application-label">
+                        CAREERSPRING
+                    </p>
 
                     <h1 className="application-success-title">
                         Application Submitted!
                     </h1>
 
                     <p className="application-success-message">
-                        Thank you, {formData.fullName.trim()}! Your application
-                        for {opportunity.title} at {opportunity.company} has
-                        been saved successfully.
+                        Thank you, {formData.fullName.trim()}! Your
+                        application for {opportunity.title} at{" "}
+                        {opportunity.company} has been saved successfully.
                     </p>
 
                     <p className="application-field-help">
@@ -216,17 +259,21 @@ function ApplicationForm() {
         );
     }
 
+    // Application form
     return (
         <div className="application-page">
             <header className="application-header">
-                <p className="application-label">CAREER OPPORTUNITIES</p>
+                <p className="application-label">
+                    CAREER OPPORTUNITIES
+                </p>
 
                 <h1 className="application-title">
                     Take the Next Step in Your Career
                 </h1>
 
                 <p className="application-description">
-                    Complete your student profile and submit your application.
+                    Review your details, edit them if needed, and submit
+                    your application.
                 </p>
             </header>
 
@@ -254,7 +301,8 @@ function ApplicationForm() {
                     </h2>
 
                     <p className="application-field-help">
-                        Fields marked with * are required.
+                        Fields marked with * are required. You can edit
+                        your details before submitting.
                     </p>
 
                     <div className="application-field">
@@ -362,7 +410,9 @@ function ApplicationForm() {
                                 onChange={handleChange}
                                 required
                             >
-                                <option value="">Select year</option>
+                                <option value="">
+                                    Select year
+                                </option>
 
                                 {Array.from(
                                     { length: 8 },
@@ -371,7 +421,7 @@ function ApplicationForm() {
                                     <option
                                         className="application-year-option"
                                         key={year}
-                                        value={year}
+                                        value={String(year)}
                                     >
                                         {year}
                                     </option>
@@ -455,4 +505,5 @@ function ApplicationForm() {
         </div>
     );
 }
+
 export default ApplicationForm;
