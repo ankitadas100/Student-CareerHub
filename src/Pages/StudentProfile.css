@@ -204,3 +204,65 @@
     background-color: #d4af37;
     color: #070748;
 }
+
+.profile-edit-form {
+    width: 100%;
+}
+
+.profile-field-label {
+    display: block;
+    margin: 16px 0 8px;
+    color: #070748;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.profile-input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border: 1px solid #d8d5cc;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #17202a;
+    font: inherit;
+}
+
+.profile-input:focus {
+    outline: 2px solid #d4af37;
+    outline-offset: 1px;
+}
+
+.profile-textarea {
+    resize: vertical;
+}
+
+.profile-message {
+    padding: 12px 16px;
+    background: #ffffff;
+    border-left: 4px solid #d4af37;
+    color: #070748;
+    overflow-wrap: anywhere;
+}
+
+.profile-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.profile-form-actions button {
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .profile-form-actions {
+        flex-direction: column;
+    }
+
+    .profile-form-actions button {
+        width: 100%;
+    }
+}
