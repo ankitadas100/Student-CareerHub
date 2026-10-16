@@ -198,3 +198,80 @@
     }
 
 }
+
+/* Application Status Overview */
+
+.dashboard-status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 18px;
+    margin: 24px 0;
+}
+
+.dashboard-status-card {
+    padding: 24px 20px;
+    background: #ffffff;
+    border: 1px solid #e6e2d8;
+    border-top: 4px solid #d4af37;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(7, 7, 72, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-status-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(7, 7, 72, 0.1);
+}
+
+.dashboard-status-number {
+    margin: 0 0 10px;
+    color: #070748;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.dashboard-status-title {
+    margin: 0;
+    color: #55556b;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.status-sent {
+    border-top-color: #d4af37;
+}
+
+.status-review {
+    border-top-color: #60a5fa;
+}
+
+.status-shortlisted {
+    border-top-color: #16a34a;
+}
+
+.status-interview {
+    border-top-color: #8b5cf6;
+}
+
+.status-rejected {
+    border-top-color: #ef4444;
+}
+
+@media (max-width: 600px) {
+    .dashboard-status-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .dashboard-status-card {
+        padding: 18px 14px;
+    }
+
+    .dashboard-status-number {
+        font-size: 26px;
+    }
+
+    .dashboard-status-title {
+        font-size: 12px;
+    }
+}
