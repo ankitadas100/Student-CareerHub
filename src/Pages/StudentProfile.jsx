@@ -1,36 +1,47 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./StudentProfile.css";
 
 const defaultProfile = {
     name: "Ankita Das",
     email: "ankita@example.com",
     phone: "",
-    college: "Brainware University",
+    college: "Adamas University",
     course: "Bachelor of Computer Applications",
     graduationYear: "2027",
     skills: ["HTML", "CSS", "JavaScript", "React", "Git"],
     projects: [
         {
             title: "CareerSpring",
-            description: "Student-focused jobs and internship portal built with React."
+            description:
+                "Student-focused jobs and internship portal built with React."
         },
         {
             title: "FrameFusion",
-            description: "Photo gallery application built with React."
+            description:
+                "Photo gallery application built with React."
         }
     ],
     resumeName: ""
 };
 
 function StudentProfile() {
+    const profileViewCounted = useRef(false);
+
     const [profile, setProfile] = useState(() => {
         try {
             const savedProfile = localStorage.getItem("studentProfile");
 
-            return savedProfile
-                ? { ...defaultProfile, ...JSON.parse(savedProfile) }
-                : defaultProfile;
+            if (savedProfile) {
+                const parsedProfile = JSON.parse(savedProfile);
+
+                return {
+                    ...defaultProfile,
+                    ...parsedProfile
+                };
+            }
+
+            return defaultProfile;
         } catch {
             return defaultProfile;
         }
@@ -41,6 +52,37 @@ function StudentProfile() {
     const [message, setMessage] = useState("");
     const [resumeFile, setResumeFile] = useState(null);
 
+    // Count profile visits
+    useEffect(() => {
+        if (profileViewCounted.current) {
+            return;
+        }
+
+        profileViewCounted.current = true;
+
+        try {
+            const currentViews = Number(
+                localStorage.getItem("profileViews") || "0"
+            );
+
+            const safeViews =
+                Number.isFinite(currentViews) && currentViews >= 0
+                    ? currentViews
+                    : 0;
+
+            localStorage.setItem(
+                "profileViews",
+                String(safeViews + 1)
+            );
+        } catch (error) {
+            console.error(
+                "Unable to update profile views:",
+                error
+            );
+        }
+    }, []);
+
+    // Keep the edit form in sync with the saved profile
     useEffect(() => {
         setFormData(profile);
     }, [profile]);
@@ -56,6 +98,7 @@ function StudentProfile() {
         setMessage("");
     };
 
+    // Update project details
     const handleProjectChange = (index, field, value) => {
         setFormData((previous) => ({
             ...previous,
@@ -67,10 +110,13 @@ function StudentProfile() {
         }));
     };
 
+
     const handleResumeChange = (e) => {
         const file = e.target.files[0];
 
-        if (!file) return;
+        if (!file) {
+            return;
+        }
 
         const isPDF =
             file.type === "application/pdf" ||
@@ -98,6 +144,7 @@ function StudentProfile() {
         setMessage("");
     };
 
+    // Save profile changes
     const handleSave = (e) => {
         e.preventDefault();
 
@@ -105,13 +152,20 @@ function StudentProfile() {
             ...formData,
             name: formData.name.trim(),
             email: formData.email.trim(),
+            phone: formData.phone.trim(),
             college: formData.college.trim(),
+            course: formData.course.trim(),
+            graduationYear: String(formData.graduationYear),
             skills: formData.skills
                 .filter((skill) => skill.trim())
                 .map((skill) => skill.trim()),
-            projects: formData.projects.filter(
-                (project) => project.title.trim()
-            )
+            projects: formData.projects
+                .filter((project) => project.title.trim())
+                .map((project) => ({
+                    ...project,
+                    title: project.title.trim(),
+                    description: project.description.trim()
+                }))
         };
 
         try {
@@ -124,10 +178,13 @@ function StudentProfile() {
             setIsEditing(false);
             setMessage("Profile updated successfully!");
         } catch {
-            setMessage("Unable to save your profile. Please try again.");
+            setMessage(
+                "Unable to save your profile. Please try again."
+            );
         }
     };
 
+    // Cancel editing
     const handleCancel = () => {
         setFormData(profile);
         setResumeFile(null);
@@ -135,6 +192,7 @@ function StudentProfile() {
         setMessage("");
     };
 
+   
     const handleViewResume = () => {
         if (!resumeFile) {
             setMessage(
@@ -146,6 +204,7 @@ function StudentProfile() {
         }
 
         const resumeURL = URL.createObjectURL(resumeFile);
+
         window.open(resumeURL, "_blank", "noopener,noreferrer");
         setMessage("");
     };
@@ -153,9 +212,13 @@ function StudentProfile() {
     return (
         <div className="student-profile-page">
             <section className="profile-header">
-                <p className="profile-label">STUDENT PROFILE</p>
+                <p className="profile-label">
+                    STUDENT PROFILE
+                </p>
 
-                <h1 className="profile-title">My Career Profile</h1>
+                <h1 className="profile-title">
+                    My Career Profile
+                </h1>
 
                 <p className="profile-description">
                     Manage your personal information, education,
@@ -170,9 +233,17 @@ function StudentProfile() {
                     </div>
 
                     <div className="profile-info">
-                        <h2 className="profile-name">{profile.name}</h2>
-                        <p className="profile-email">{profile.email}</p>
-                        <p className="profile-college">{profile.college}</p>
+                        <h2 className="profile-name">
+                            {profile.name}
+                        </h2>
+
+                        <p className="profile-email">
+                            {profile.email}
+                        </p>
+
+                        <p className="profile-college">
+                            {profile.college}
+                        </p>
                     </div>
 
                     <button
@@ -184,7 +255,9 @@ function StudentProfile() {
                             setMessage("");
                         }}
                     >
-                        {isEditing ? "EDITING PROFILE" : "EDIT PROFILE"}
+                        {isEditing
+                            ? "EDITING PROFILE"
+                            : "EDIT PROFILE"}
                     </button>
                 </div>
 
@@ -195,15 +268,22 @@ function StudentProfile() {
                 )}
 
                 {isEditing ? (
-                    <form className="profile-edit-form" onSubmit={handleSave}>
+                    <form
+                        className="profile-edit-form"
+                        onSubmit={handleSave}
+                    >
                         <div className="profile-section">
                             <h2 className="profile-section-title">
                                 Personal Information
                             </h2>
 
-                            <label className="profile-field-label" htmlFor="name">
+                            <label
+                                className="profile-field-label"
+                                htmlFor="name"
+                            >
                                 Full Name
                             </label>
+
                             <input
                                 className="profile-input"
                                 id="name"
@@ -213,9 +293,13 @@ function StudentProfile() {
                                 required
                             />
 
-                            <label className="profile-field-label" htmlFor="email">
+                            <label
+                                className="profile-field-label"
+                                htmlFor="email"
+                            >
                                 Email Address
                             </label>
+
                             <input
                                 className="profile-input"
                                 id="email"
@@ -226,9 +310,13 @@ function StudentProfile() {
                                 required
                             />
 
-                            <label className="profile-field-label" htmlFor="phone">
+                            <label
+                                className="profile-field-label"
+                                htmlFor="phone"
+                            >
                                 Phone Number
                             </label>
+
                             <input
                                 className="profile-input"
                                 id="phone"
@@ -238,9 +326,13 @@ function StudentProfile() {
                                 onChange={handleChange}
                             />
 
-                            <label className="profile-field-label" htmlFor="college">
+                            <label
+                                className="profile-field-label"
+                                htmlFor="college"
+                            >
                                 College / University
                             </label>
+
                             <input
                                 className="profile-input"
                                 id="college"
@@ -256,9 +348,13 @@ function StudentProfile() {
                                 Education
                             </h2>
 
-                            <label className="profile-field-label" htmlFor="course">
+                            <label
+                                className="profile-field-label"
+                                htmlFor="course"
+                            >
                                 Degree
                             </label>
+
                             <input
                                 className="profile-input"
                                 id="course"
@@ -274,6 +370,7 @@ function StudentProfile() {
                             >
                                 Graduation Year
                             </label>
+
                             <input
                                 className="profile-input"
                                 id="graduationYear"
@@ -288,11 +385,17 @@ function StudentProfile() {
                         </div>
 
                         <div className="profile-section">
-                            <h2 className="profile-section-title">Skills</h2>
+                            <h2 className="profile-section-title">
+                                Skills
+                            </h2>
 
-                            <label className="profile-field-label" htmlFor="skills">
+                            <label
+                                className="profile-field-label"
+                                htmlFor="skills"
+                            >
                                 Skills (separate with commas)
                             </label>
+
                             <textarea
                                 className="profile-input profile-textarea"
                                 id="skills"
@@ -308,15 +411,25 @@ function StudentProfile() {
                         </div>
 
                         <div className="profile-section">
-                            <h2 className="profile-section-title">Projects</h2>
+                            <h2 className="profile-section-title">
+                                Projects
+                            </h2>
 
                             {formData.projects.map((project, index) => (
-                                <div className="project-card" key={index}>
-                                    <label className="profile-field-label">
+                                <div
+                                    className="project-card"
+                                    key={index}
+                                >
+                                    <label
+                                        className="profile-field-label"
+                                        htmlFor={`project-title-${index}`}
+                                    >
                                         Project Name
                                     </label>
+
                                     <input
                                         className="profile-input"
+                                        id={`project-title-${index}`}
                                         value={project.title}
                                         onChange={(e) =>
                                             handleProjectChange(
@@ -327,11 +440,16 @@ function StudentProfile() {
                                         }
                                     />
 
-                                    <label className="profile-field-label">
+                                    <label
+                                        className="profile-field-label"
+                                        htmlFor={`project-description-${index}`}
+                                    >
                                         Project Description
                                     </label>
+
                                     <textarea
                                         className="profile-input profile-textarea"
+                                        id={`project-description-${index}`}
                                         value={project.description}
                                         onChange={(e) =>
                                             handleProjectChange(
@@ -353,7 +471,10 @@ function StudentProfile() {
                                         ...previous,
                                         projects: [
                                             ...previous.projects,
-                                            { title: "", description: "" }
+                                            {
+                                                title: "",
+                                                description: ""
+                                            }
                                         ]
                                     }))
                                 }
@@ -363,11 +484,17 @@ function StudentProfile() {
                         </div>
 
                         <div className="profile-section">
-                            <h2 className="profile-section-title">Resume</h2>
+                            <h2 className="profile-section-title">
+                                Resume
+                            </h2>
 
-                            <label className="profile-field-label" htmlFor="resumeUpload">
+                            <label
+                                className="profile-field-label"
+                                htmlFor="resumeUpload"
+                            >
                                 Upload Resume (PDF, max 2 MB)
                             </label>
+
                             <input
                                 className="profile-input"
                                 id="resumeUpload"
@@ -377,7 +504,8 @@ function StudentProfile() {
                             />
 
                             <p className="resume-text">
-                                {formData.resumeName || "No resume selected"}
+                                {formData.resumeName ||
+                                    "No resume selected"}
                             </p>
                         </div>
 
@@ -401,15 +529,19 @@ function StudentProfile() {
                 ) : (
                     <>
                         <div className="profile-section">
-                            <h2 className="profile-section-title">Education</h2>
+                            <h2 className="profile-section-title">
+                                Education
+                            </h2>
 
                             <div className="education-info">
                                 <p className="education-course">
                                     {profile.course}
                                 </p>
+
                                 <p className="education-college">
                                     {profile.college}
                                 </p>
+
                                 <p className="education-year">
                                     Graduation Year: {profile.graduationYear}
                                 </p>
@@ -417,11 +549,16 @@ function StudentProfile() {
                         </div>
 
                         <div className="profile-section">
-                            <h2 className="profile-section-title">Skills</h2>
+                            <h2 className="profile-section-title">
+                                Skills
+                            </h2>
 
                             <div className="profile-skills">
                                 {profile.skills.map((skill, index) => (
-                                    <span className="profile-skill" key={`${skill}-${index}`}>
+                                    <span
+                                        className="profile-skill"
+                                        key={`${skill}-${index}`}
+                                    >
                                         {skill}
                                     </span>
                                 ))}
@@ -429,14 +566,20 @@ function StudentProfile() {
                         </div>
 
                         <div className="profile-section">
-                            <h2 className="profile-section-title">Projects</h2>
+                            <h2 className="profile-section-title">
+                                Projects
+                            </h2>
 
                             <div className="profile-projects">
                                 {profile.projects.map((project, index) => (
-                                    <div className="project-card" key={index}>
+                                    <div
+                                        className="project-card"
+                                        key={index}
+                                    >
                                         <h3 className="project-title">
                                             {project.title}
                                         </h3>
+
                                         <p className="project-description">
                                             {project.description}
                                         </p>
@@ -446,7 +589,9 @@ function StudentProfile() {
                         </div>
 
                         <div className="profile-section">
-                            <h2 className="profile-section-title">Resume</h2>
+                            <h2 className="profile-section-title">
+                                Resume
+                            </h2>
 
                             <div className="resume-box">
                                 <p className="resume-text">

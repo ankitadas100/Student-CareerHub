@@ -7,7 +7,16 @@ function StudentDashboard() {
     const [applications, setApplications] = useState([]);
     const [savedCount, setSavedCount] = useState(0);
 
-    // Load applications and saved opportunities
+    const [profileViews, setProfileViews] = useState(() => {
+        try {
+            const views = Number(localStorage.getItem("profileViews") || "0");
+            return Number.isFinite(views) && views >= 0 ? views : 0;
+        } catch {
+            return 0;
+        }
+    });
+
+    // Load dashboard data
     useEffect(() => {
         const loadDashboardData = () => {
             try {
@@ -17,6 +26,10 @@ function StudentDashboard() {
 
                 const storedSaved = JSON.parse(
                     localStorage.getItem("savedOpportunities") || "[]"
+                );
+
+                const storedViews = Number(
+                    localStorage.getItem("profileViews") || "0"
                 );
 
                 setApplications(
@@ -36,9 +49,17 @@ function StudentDashboard() {
                           ).size
                         : 0
                 );
-            } catch {
+
+                setProfileViews(
+                    Number.isFinite(storedViews) && storedViews >= 0
+                        ? storedViews
+                        : 0
+                );
+            } catch (error) {
+                console.error("Unable to load dashboard data:", error);
                 setApplications([]);
                 setSavedCount(0);
+                setProfileViews(0);
             }
         };
 
@@ -60,7 +81,7 @@ function StudentDashboard() {
             review: 0,
             shortlisted: 0,
             interview: 0,
-            rejected: 0
+            rejected: 0,
         };
 
         applications.forEach((application) => {
@@ -87,9 +108,7 @@ function StudentDashboard() {
     return (
         <div className="student-dashboard-page">
             <section className="dashboard-header">
-                <p className="dashboard-label">
-                    STUDENT DASHBOARD
-                </p>
+                <p className="dashboard-label">STUDENT DASHBOARD</p>
 
                 <h1 className="dashboard-title">
                     Welcome Back, Ankita!
@@ -108,7 +127,6 @@ function StudentDashboard() {
                         <p className="dashboard-stat-number">
                             {applications.length}
                         </p>
-
                         <p className="dashboard-stat-title">
                             Applications
                         </p>
@@ -118,7 +136,6 @@ function StudentDashboard() {
                         <p className="dashboard-stat-number">
                             {savedCount}
                         </p>
-
                         <p className="dashboard-stat-title">
                             Saved Opportunities
                         </p>
@@ -126,16 +143,15 @@ function StudentDashboard() {
 
                     <div className="dashboard-stat-card">
                         <p className="dashboard-stat-number">
-                            8
+                            {profileViews}
                         </p>
-
                         <p className="dashboard-stat-title">
                             Profile Views
                         </p>
                     </div>
                 </section>
 
-                {/* Application status summary */}
+                {/* Application status overview */}
                 <section className="dashboard-section">
                     <h2 className="dashboard-section-title">
                         Application Status Overview
@@ -150,7 +166,6 @@ function StudentDashboard() {
                             <p className="dashboard-status-number">
                                 {statusCounts.sent}
                             </p>
-
                             <p className="dashboard-status-title">
                                 Application Sent
                             </p>
@@ -160,7 +175,6 @@ function StudentDashboard() {
                             <p className="dashboard-status-number">
                                 {statusCounts.review}
                             </p>
-
                             <p className="dashboard-status-title">
                                 Under Review
                             </p>
@@ -170,7 +184,6 @@ function StudentDashboard() {
                             <p className="dashboard-status-number">
                                 {statusCounts.shortlisted}
                             </p>
-
                             <p className="dashboard-status-title">
                                 Shortlisted
                             </p>
@@ -180,7 +193,6 @@ function StudentDashboard() {
                             <p className="dashboard-status-number">
                                 {statusCounts.interview}
                             </p>
-
                             <p className="dashboard-status-title">
                                 Interview Scheduled
                             </p>
@@ -190,7 +202,6 @@ function StudentDashboard() {
                             <p className="dashboard-status-number">
                                 {statusCounts.rejected}
                             </p>
-
                             <p className="dashboard-status-title">
                                 Rejected
                             </p>
@@ -216,19 +227,15 @@ function StudentDashboard() {
                             <p className="dashboard-opportunity-type">
                                 INTERNSHIP
                             </p>
-
                             <h3 className="dashboard-opportunity-title">
                                 Frontend Developer Intern
                             </h3>
-
                             <p className="dashboard-opportunity-company">
                                 ABC Technologies
                             </p>
-
                             <p className="dashboard-opportunity-location">
                                 Kolkata · Remote
                             </p>
-
                             <Link
                                 to="/opportunity-details/frontend"
                                 className="dashboard-action-button"
@@ -241,19 +248,15 @@ function StudentDashboard() {
                             <p className="dashboard-opportunity-type">
                                 INTERNSHIP
                             </p>
-
                             <h3 className="dashboard-opportunity-title">
                                 UI/UX Design Intern
                             </h3>
-
                             <p className="dashboard-opportunity-company">
                                 Design Studio
                             </p>
-
                             <p className="dashboard-opportunity-location">
                                 Remote
                             </p>
-
                             <Link
                                 to="/opportunity-details/uiux"
                                 className="dashboard-action-button"
