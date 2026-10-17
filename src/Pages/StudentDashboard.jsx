@@ -6,10 +6,14 @@ import "./StudentDashboard.css";
 function StudentDashboard() {
     const [applications, setApplications] = useState([]);
     const [savedCount, setSavedCount] = useState(0);
+    const [profileCompletion, setProfileCompletion] = useState(0);
 
     const [profileViews, setProfileViews] = useState(() => {
         try {
-            const views = Number(localStorage.getItem("profileViews") || "0");
+            const views = Number(
+                localStorage.getItem("profileViews") || "0"
+            );
+
             return Number.isFinite(views) && views >= 0 ? views : 0;
         } catch {
             return 0;
@@ -20,16 +24,24 @@ function StudentDashboard() {
     useEffect(() => {
         const loadDashboardData = () => {
             try {
+                // Load applications
                 const storedApplications = JSON.parse(
                     localStorage.getItem("applications") || "[]"
                 );
 
+                // Load saved opportunities
                 const storedSaved = JSON.parse(
                     localStorage.getItem("savedOpportunities") || "[]"
                 );
 
+                // Load profile views
                 const storedViews = Number(
                     localStorage.getItem("profileViews") || "0"
+                );
+
+                // Load student profile
+                const savedProfile = JSON.parse(
+                    localStorage.getItem("studentProfile") || "{}"
                 );
 
                 setApplications(
@@ -44,8 +56,8 @@ function StudentDashboard() {
                               storedSaved.map((item) =>
                                   typeof item === "string"
                                       ? item
-                                      : item.id
-                              )
+                                      : item?.id
+                              ).filter(Boolean)
                           ).size
                         : 0
                 );
@@ -55,16 +67,48 @@ function StudentDashboard() {
                         ? storedViews
                         : 0
                 );
+
+                // Calculate profile completion
+                const completedFields = [
+                    savedProfile.name?.trim(),
+                    savedProfile.email?.trim(),
+                    savedProfile.phone?.trim(),
+                    savedProfile.college?.trim(),
+                    savedProfile.course?.trim(),
+                    savedProfile.graduationYear?.toString().trim(),
+                    savedProfile.skills?.length > 0,
+                    savedProfile.projects?.some(
+                        (project) =>
+                            project.title?.trim() &&
+                            project.description?.trim()
+                    ),
+                    savedProfile.resumeName?.trim(),
+                ];
+
+                const completedCount =
+                    completedFields.filter(Boolean).length;
+
+                setProfileCompletion(
+                    Math.round(
+                        (completedCount / completedFields.length) * 100
+                    )
+                );
             } catch (error) {
-                console.error("Unable to load dashboard data:", error);
+                console.error(
+                    "Unable to load dashboard data:",
+                    error
+                );
+
                 setApplications([]);
                 setSavedCount(0);
                 setProfileViews(0);
+                setProfileCompletion(0);
             }
         };
 
         loadDashboardData();
 
+        // Refresh when returning to the dashboard
         window.addEventListener("focus", loadDashboardData);
         window.addEventListener("storage", loadDashboardData);
 
@@ -107,8 +151,11 @@ function StudentDashboard() {
 
     return (
         <div className="student-dashboard-page">
+            {/* Dashboard header */}
             <section className="dashboard-header">
-                <p className="dashboard-label">STUDENT DASHBOARD</p>
+                <p className="dashboard-label">
+                    STUDENT DASHBOARD
+                </p>
 
                 <h1 className="dashboard-title">
                     Welcome Back, Ankita!
@@ -121,12 +168,57 @@ function StudentDashboard() {
             </section>
 
             <main className="dashboard-content">
+                {/* Profile strength */}
+                <section className="dashboard-section">
+                    <h2 className="dashboard-section-title">
+                        Your Profile Strength
+                    </h2>
+
+                    <div className="profile-completion-header">
+                        <p className="dashboard-description">
+                            Complete your profile to showcase your skills.
+                        </p>
+
+                        <strong>{profileCompletion}%</strong>
+                    </div>
+
+                    <div
+                        className="profile-completion-track"
+                        role="progressbar"
+                        aria-label="Profile completion"
+                        aria-valuenow={profileCompletion}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                    >
+                        <div
+                            className="profile-completion-fill"
+                            style={{
+                                width: `${profileCompletion}%`,
+                            }}
+                        />
+                    </div>
+
+                    <p className="dashboard-description">
+                        {profileCompletion === 100
+                            ? "Excellent! Your profile is complete."
+                            : "Add your details, skills, projects, and resume to improve your profile."}
+                    </p>
+
+                    <Link
+                        to="/student-profile"
+                        className="dashboard-action-button"
+                    >
+                        COMPLETE YOUR PROFILE →
+                    </Link>
+                </section>
+
                 {/* Main dashboard statistics */}
                 <section className="dashboard-stats">
                     <div className="dashboard-stat-card">
                         <p className="dashboard-stat-number">
                             {applications.length}
                         </p>
+
                         <p className="dashboard-stat-title">
                             Applications
                         </p>
@@ -136,6 +228,7 @@ function StudentDashboard() {
                         <p className="dashboard-stat-number">
                             {savedCount}
                         </p>
+
                         <p className="dashboard-stat-title">
                             Saved Opportunities
                         </p>
@@ -145,6 +238,7 @@ function StudentDashboard() {
                         <p className="dashboard-stat-number">
                             {profileViews}
                         </p>
+
                         <p className="dashboard-stat-title">
                             Profile Views
                         </p>
@@ -166,6 +260,7 @@ function StudentDashboard() {
                             <p className="dashboard-status-number">
                                 {statusCounts.sent}
                             </p>
+
                             <p className="dashboard-status-title">
                                 Application Sent
                             </p>
@@ -175,6 +270,7 @@ function StudentDashboard() {
                             <p className="dashboard-status-number">
                                 {statusCounts.review}
                             </p>
+
                             <p className="dashboard-status-title">
                                 Under Review
                             </p>
@@ -184,6 +280,7 @@ function StudentDashboard() {
                             <p className="dashboard-status-number">
                                 {statusCounts.shortlisted}
                             </p>
+
                             <p className="dashboard-status-title">
                                 Shortlisted
                             </p>
@@ -193,6 +290,7 @@ function StudentDashboard() {
                             <p className="dashboard-status-number">
                                 {statusCounts.interview}
                             </p>
+
                             <p className="dashboard-status-title">
                                 Interview Scheduled
                             </p>
@@ -202,6 +300,7 @@ function StudentDashboard() {
                             <p className="dashboard-status-number">
                                 {statusCounts.rejected}
                             </p>
+
                             <p className="dashboard-status-title">
                                 Rejected
                             </p>
@@ -227,15 +326,19 @@ function StudentDashboard() {
                             <p className="dashboard-opportunity-type">
                                 INTERNSHIP
                             </p>
+
                             <h3 className="dashboard-opportunity-title">
                                 Frontend Developer Intern
                             </h3>
+
                             <p className="dashboard-opportunity-company">
                                 ABC Technologies
                             </p>
+
                             <p className="dashboard-opportunity-location">
                                 Kolkata · Remote
                             </p>
+
                             <Link
                                 to="/opportunity-details/frontend"
                                 className="dashboard-action-button"
@@ -248,15 +351,19 @@ function StudentDashboard() {
                             <p className="dashboard-opportunity-type">
                                 INTERNSHIP
                             </p>
+
                             <h3 className="dashboard-opportunity-title">
                                 UI/UX Design Intern
                             </h3>
+
                             <p className="dashboard-opportunity-company">
                                 Design Studio
                             </p>
+
                             <p className="dashboard-opportunity-location">
                                 Remote
                             </p>
+
                             <Link
                                 to="/opportunity-details/uiux"
                                 className="dashboard-action-button"
