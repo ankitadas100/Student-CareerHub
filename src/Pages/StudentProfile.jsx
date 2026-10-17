@@ -1,5 +1,5 @@
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState,useMemo } from "react";
 import "./StudentProfile.css";
 
 const defaultProfile = {
@@ -51,8 +51,33 @@ function StudentProfile() {
     const [isEditing, setIsEditing] = useState(false);
     const [message, setMessage] = useState("");
     const [resumeFile, setResumeFile] = useState(null);
+    
+const profileCompletion = useMemo(() => {
+    const completedFields = [
+        profile.name?.trim(),
+        profile.email?.trim(),
+        profile.phone?.trim(),
+        profile.college?.trim(),
+        profile.course?.trim(),
+        profile.graduationYear?.toString().trim(),
+        profile.skills?.length > 0,
+        profile.projects?.some(
+            (project) =>
+                project.title?.trim() &&
+                project.description?.trim()
+        ),
+        profile.resumeName?.trim(),
+    ];
 
-    // Count profile visits
+    const completedCount = completedFields.filter(Boolean).length;
+
+    return Math.round(
+        (completedCount / completedFields.length) * 100
+    );
+}, [profile]);
+
+
+
     useEffect(() => {
         if (profileViewCounted.current) {
             return;
@@ -227,6 +252,39 @@ function StudentProfile() {
             </section>
 
             <section className="profile-content">
+            
+<div className="profile-completion-card">
+    <div className="profile-completion-header">
+        <h2 className="profile-section-title">
+            Profile Completion
+        </h2>
+
+        <span className="profile-completion-percentage">
+            {profileCompletion}%
+        </span>
+    </div>
+
+    <div
+        className="profile-completion-track"
+        role="progressbar"
+        aria-label="Profile completion"
+        aria-valuenow={profileCompletion}
+        aria-valuemin={0}
+        aria-valuemax={100}
+    >
+        <div
+            className="profile-completion-fill"
+            style={{ width: `${profileCompletion}%` }}
+        />
+    </div>
+
+    <p className="profile-description">
+        {profileCompletion === 100
+            ? "Excellent! Your profile is complete."
+            : "Complete your profile details to improve your profile strength."}
+    </p>
+</div>
+
                 <div className="profile-card">
                     <div className="profile-avatar">
                         {profile.name.charAt(0).toUpperCase() || "A"}
