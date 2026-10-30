@@ -89,7 +89,7 @@ const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Validate required fields
+        
         if (!email || !password) {
             return res.status(400).json({
                 success: false,
@@ -97,7 +97,7 @@ const loginUser = async (req, res) => {
             });
         }
 
-        // Find user by email
+        
         const user = await User.findOne({
             email: email.trim().toLowerCase()
         });
@@ -109,7 +109,7 @@ const loginUser = async (req, res) => {
             });
         }
 
-        // Compare password with hashed password
+       
         const isPasswordValid = await bcrypt.compare(
             password,
             user.password
@@ -122,7 +122,7 @@ const loginUser = async (req, res) => {
             });
         }
 
-        // Generate JWT token
+     
         const token = jwt.sign(
             { userId: user._id },
             process.env.JWT_SECRET,
