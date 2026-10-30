@@ -85,5 +85,71 @@ const registerUser = async (req, res) => {
         });
     }
 };
+const loginUser = async (req, res) => {
+    try {
+        const { email, password } = req.body;
 
-module.exports = { registerUser };
+        // Validate required fields
+        if (!email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "Email and password are required"
+            });
+        }
+
+        // Find user by email
+        const user = await User.findOne({
+            email: email.trim().toLowerCase()
+        });
+
+        if (!user) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid email or password"
+            });
+        }
+
+        // Compare password with hashed password
+        const isPasswordValid = await bcrypt.compare(
+            password,
+            user.password
+        );
+
+        if (!isPasswordValid) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid email or password"
+            });
+        }
+
+        // Generate JWT token
+        const token = jwt.sign(
+            { userId: user._id },
+            process.env.JWT_SECRET,
+            { expiresIn: "1d" }
+        );
+
+        return res.status(200).json({
+            success: true,
+            message: "Login successful",
+            token,
+            user: {
+                id: user._id,
+                fullName: user.fullName,
+                email: user.email,
+                college: user.college,
+                graduationYear: user.graduationYear
+            }
+        });
+
+    } catch (error) {
+        console.error("Login error:", error.message);
+
+        return res.status(500).json({
+            success: false,
+            message: "Server error during login"
+        });
+    }
+};
+
+module.exports = { registerUser,loginUser  };
