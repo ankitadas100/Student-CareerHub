@@ -3,8 +3,8 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./db");
-const { registerUser ,loginUser} = require("./controllers/userController");
-
+const { registerUser ,loginUser,getStudentProfile} = require("./controllers/userController");
+const authMiddleware=require("./middleware/authmiddleware")
 dotenv.config();
 
 const app = express();
@@ -37,5 +37,6 @@ const startServer = async () => {
     }
 };
 app.post("/api/users/login", loginUser);
+app.get("/api/users/profile", authMiddleware, getStudentProfile);
 
 startServer();
