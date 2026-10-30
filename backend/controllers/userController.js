@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const registerUser = async (req, res) => {
     try {
@@ -11,7 +12,7 @@ const registerUser = async (req, res) => {
             graduationYear
         } = req.body;
 
-        // Validate required fields
+       
         if (!fullName || !email || !password) {
             return res.status(400).json({
                 success: false,
@@ -19,7 +20,7 @@ const registerUser = async (req, res) => {
             });
         }
 
-        // Validate password length
+       
         if (password.length < 8) {
             return res.status(400).json({
                 success: false,
@@ -27,10 +28,10 @@ const registerUser = async (req, res) => {
             });
         }
 
-        // Normalize email
+        
         const normalizedEmail = email.trim().toLowerCase();
 
-        // Check if user already exists
+       
         const existingUser = await User.findOne({
             email: normalizedEmail
         });
@@ -42,10 +43,10 @@ const registerUser = async (req, res) => {
             });
         }
 
-        // Hash password before saving
+       
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Create user in MongoDB
+       
         const user = await User.create({
             fullName: fullName.trim(),
             email: normalizedEmail,

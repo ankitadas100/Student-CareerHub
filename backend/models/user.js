@@ -1,39 +1,83 @@
-const mongoose = require("mongoose");
+const User = require("../models/user");
+const bcrypt = require("bcryptjs");
 
-const userSchema = new mongoose.Schema(
-    {
-        fullName: {
-            type: String,
-            required: true,
-            trim: true,
-        },
+// Register User
+const registerUser = async (req, res) => {
+    try {
+        const {
+            fullName,
+            email,
+            password,
+            college,
+            graduationYear
+        } = req.body;
 
-        email: {
-            type: String,
-            required: true,
-            unique: true,
-            lowercase: true,
-            trim: true,
-        },
+        // 1. Validate required fields
+        if (!fullName || !email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "Full name, email and password are required"
+            });
+        }
 
-        password: {
-            type: String,
-            required: true,
-        },
+        // 2. Normalize email
+        const normalizedEmail = email.trim().toLowerCase();
 
-        college: {
-            type: String,
-            default: "",
-        },
+        // 3. Check existing user
+        const existingUser = await User.findOne({
+            email: normalizedEmail
+        });
 
-        graduationYear: {
-            type: Number,
-            default: null,
-        },
-    },
-    {
-        timestamps: true,
+        if (existingUser) {
+            return res.status(409).json({
+                success: false,
+                message: "An account with this email already exists"
+            });
+        }
+
+        // 4. Hash password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // 5. Create user
+        const user = await User.create({
+            fullName: fullName.trim(),
+            email: normalizedEmail,
+            password: hashedPassword,
+            college: college?.trim() || "",
+            graduationYear: graduationYear
+                ? Number(graduationYear)
+                : null
+        });
+
+        // 6. Send response without password
+        return res.status(201).json({
+            success: true,
+            message: "Registration successful",
+            user: {
+                id: user._id,
+                fullName: user.fullName,
+                email: user.email,
+                college: user.college,
+                graduationYear: user.graduationYear
+            }
+        });
+
+    } catch (error) {
+        console.error("Registration error:", error);
+
+        // Handle duplicate email race condition
+        if (error.code === 11000) {
+            return res.status(409).json({
+                success: false,
+                message: "An account with this email already exists"
+            });
+        }
+
+        return res.status(500).json({
+            success: false,
+            message: "Server error during registration"
+        });
     }
-);
+};
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = { registerUser };
