@@ -3,7 +3,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./db");
-const { registerUser } = require("./controllers/userController.js");
+const { registerUser } = require("./controllers/userController");
 
 dotenv.config();
 
@@ -12,14 +12,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Home route
+// Test route
 app.get("/", (req, res) => {
     res.status(200).json({
-        message: "CareerSpring API is running!",
+        message: "CareerSpring API is running!"
     });
 });
 
-// User Registration API
+// Student registration API
 app.post("/api/users/register", registerUser);
 
 const PORT = process.env.PORT || 5000;
