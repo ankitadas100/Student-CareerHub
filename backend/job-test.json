@@ -1,0 +1,12 @@
+
+{
+  "title": "Frontend Developer Intern",
+  "company": "CareerSpring Technologies",
+  "location": "Kolkata, West Bengal",
+  "type": "Internship",
+  "description": "Work on responsive web interfaces using HTML, CSS, JavaScript, and React.",
+  "salary": "₹10,000 per month",
+  "skills": ["HTML", "CSS", "JavaScript", "React"],
+  "applicationDeadline": "2026-12-31",
+  "applyLink": "https://example.com/apply"
+}
