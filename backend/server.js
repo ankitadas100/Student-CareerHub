@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./db");
 const { registerUser ,loginUser,getStudentProfile} = require("./controllers/userController");
+const {createJob,getAllJobs,getJobById} = require("./controllers/jobController");
 const authMiddleware=require("./middleware/authmiddleware")
 dotenv.config();
 
@@ -38,5 +39,10 @@ const startServer = async () => {
 };
 app.post("/api/users/login", loginUser);
 app.get("/api/users/profile", authMiddleware, getStudentProfile);
+app.post("/api/jobs", authMiddleware, createJob);
+
+app.get("/api/jobs", getAllJobs);
+
+app.get("/api/jobs/:id", getJobById);
 
 startServer();
